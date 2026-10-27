@@ -1,26 +1,505 @@
 @import "tailwindcss";
 
+/* ═══════════════════════ ALRO design tokens ═══════════════════════
+   Palette from the brand sheet: Deep Black, Signal Red, Soft White,
+   Studio Gray, Kontour Orange. Type: Montserrat.                     */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --black: #100101;
+  --black-2: #170807;
+  --black-3: #1f1210;
+  --red: #ee0000;
+  --red-soft: #e83a25;
+  --white: #fff7f7;
+  --gray: #bababa;
+  --gray-2: #8a8080;
+  --orange: #ff5100;
+  --orange-soft: #ec7230;
+  --input: #efeaea;
+
+  --line: rgb(255 247 247 / 0.14);
+  --line-2: rgb(255 247 247 / 0.24);
+
+  --gutter: clamp(18px, 3.4vw, 52px);
+  --max: 1360px;
+  --section: clamp(88px, 6rem + 4vw, 168px);
+  --radius-xl: clamp(24px, 3vw, 40px);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-black: var(--black);
+  --color-black-2: var(--black-2);
+  --color-black-3: var(--black-3);
+  --color-red: var(--red);
+  --color-red-soft: var(--red-soft);
+  --color-white: var(--white);
+  --color-gray: var(--gray);
+  --color-gray-2: var(--gray-2);
+  --color-orange: var(--orange);
+  --color-orange-soft: var(--orange-soft);
+  --color-input: var(--input);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    background: var(--black);
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--orange);
+    color: var(--white);
+  }
+  :focus-visible {
+    outline: 2px solid var(--orange);
+    outline-offset: 3px;
+    border-radius: 999px;
+  }
+  img {
+    display: block;
+    max-width: 100%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* ───────── Layout ───────── */
+  .wrap {
+    width: 100%;
+    max-width: calc(var(--max) + var(--gutter) * 2);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .section {
+    position: relative;
+    padding-block: var(--section);
+  }
+
+  /* ───────── Type ─────────
+     Headings: UPPERCASE Montserrat, staggered lines (see <Stagger/>).
+     Hero: sentence case, Medium, very large. Numerals: Light.        */
+  .t-hero {
+    font-weight: 500;
+    font-size: clamp(2.7rem, 1.2rem + 5vw, 5.6rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+  }
+  .t-h1 {
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: clamp(2.1rem, 1rem + 3.9vw, 4.6rem);
+    line-height: 1;
+    letter-spacing: -0.005em;
+  }
+  .t-h2 {
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: clamp(1.9rem, 1rem + 2.9vw, 3.6rem);
+    line-height: 1.02;
+    letter-spacing: 0;
+  }
+  .t-row {
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: clamp(1.35rem, 0.9rem + 2vw, 3rem);
+    line-height: 1.02;
+  }
+  .t-stat {
+    font-weight: 300;
+    font-size: clamp(3.4rem, 2rem + 4.4vw, 6.4rem);
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+  }
+  .t-quote {
+    font-weight: 500;
+    font-size: clamp(1.5rem, 0.9rem + 2.4vw, 3.2rem);
+    line-height: 1.16;
+    letter-spacing: -0.005em;
+  }
+  .t-lead {
+    font-size: clamp(0.95rem, 0.88rem + 0.3vw, 1.1rem);
+    line-height: 1.5;
+    color: var(--gray);
+  }
+  .t-body {
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: var(--gray);
+  }
+  .t-justify {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+  .t-label {
+    font-size: 0.78rem;
+    line-height: 1.3;
+    color: var(--gray);
+  }
+  .t-nav {
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .t-index {
+    font-weight: 400;
+    font-size: clamp(1rem, 0.9rem + 0.6vw, 1.5rem);
+    color: var(--gray);
+  }
+  .muted {
+    color: var(--gray-2);
+  }
+
+  /* ───────── Ember glow (the signature gradient) ───────── */
+  .ember-tl {
+    background:
+      radial-gradient(60% 70% at 0% 0%, rgb(255 81 0 / 0.95) 0%, rgb(232 58 37 / 0.7) 22%, rgb(120 10 0 / 0.35) 45%, transparent 68%),
+      var(--black);
+  }
+  .ember-bottom {
+    background:
+      radial-gradient(120% 70% at 50% 120%, #ff6a1a 0%, #e83a25 28%, #7a0b02 52%, transparent 72%),
+      var(--black);
+  }
+  .ember-tr {
+    background:
+      radial-gradient(55% 65% at 100% 0%, rgb(255 81 0 / 0.9) 0%, rgb(232 58 37 / 0.6) 25%, rgb(120 10 0 / 0.3) 48%, transparent 70%),
+      var(--black);
+  }
+
+  /* ───────── Liquid glass ─────────
+     Layered, Apple-style:
+     1 backdrop blur + saturation + slight brightness
+     2 faint warm tint
+     3 gradient rim (bright top-left → faint bottom-right) via mask-composite
+     4 specular: inset highlights + moving sheen that follows the pointer (--mx/--my)
+     5 soft depth shadow                                                         */
+  .lg {
+    --lg-blur: 22px;
+    --lg-tint: 255 247 247;
+    --lg-alpha: 0.06;
+    position: relative;
+    isolation: isolate;
+    background: linear-gradient(135deg, rgb(var(--lg-tint) / calc(var(--lg-alpha) + 0.05)), rgb(var(--lg-tint) / var(--lg-alpha)) 45%, rgb(var(--lg-tint) / calc(var(--lg-alpha) * 0.5)));
+    -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(185%) brightness(1.06);
+    backdrop-filter: blur(var(--lg-blur)) saturate(185%) brightness(1.06);
+    box-shadow:
+      inset 0 1px 0.5px rgb(255 255 255 / 0.32),
+      inset 1px 0 0.5px rgb(255 255 255 / 0.12),
+      inset 0 -1px 1px rgb(255 255 255 / 0.05),
+      inset 0 0 22px rgb(255 255 255 / 0.04),
+      0 18px 50px -18px rgb(0 0 0 / 0.55),
+      0 2px 6px -2px rgb(0 0 0 / 0.35);
+  }
+  /* rim */
+  .lg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, rgb(255 255 255 / 0.55), rgb(255 255 255 / 0.12) 30%, rgb(255 255 255 / 0.04) 60%, rgb(255 200 170 / 0.22));
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+  }
+  /* specular sheen that tracks the pointer */
+  .lg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(420px circle at var(--mx, 20%) var(--my, 0%), rgb(255 255 255 / 0.13), transparent 45%),
+      linear-gradient(180deg, rgb(255 255 255 / 0.07), transparent 38%);
+    mix-blend-mode: screen;
+  }
+  .lg > * {
+    position: relative;
+    z-index: 2;
+  }
+  .lg-dark {
+    --lg-tint: 16 1 1;
+    --lg-alpha: 0.42;
+  }
+  .lg-strong {
+    --lg-blur: 34px;
+  }
+  /* Chromium-only refraction, enabled by JS feature detection (see glass.tsx) */
+  html.lg-refract .lg-refract {
+    -webkit-backdrop-filter: url(#lg-refract) blur(10px) saturate(185%) brightness(1.06);
+    backdrop-filter: url(#lg-refract) blur(10px) saturate(185%) brightness(1.06);
+  }
+  @media (max-width: 720px) {
+    .lg {
+      --lg-blur: 16px;
+    }
+  }
+
+  /* ───────── Buttons ───────── */
+  /* split pill: label + circular arrow puck */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    height: 56px;
+    padding: 4px 4px 4px 1.6rem;
+    border-radius: 999px;
+    font-size: 0.86rem;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition:
+      background 0.3s var(--ease),
+      color 0.3s var(--ease),
+      transform 0.3s var(--ease);
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn .puck {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    flex: none;
+    transition: transform 0.45s var(--spring);
+  }
+  .btn:hover .puck {
+    transform: rotate(45deg) scale(1.04);
+  }
+  .btn .puck svg {
+    width: 15px;
+    height: 15px;
+  }
+  .btn-light {
+    background: var(--white);
+    color: var(--black);
+  }
+  .btn-light .puck {
+    background: var(--black);
+    color: var(--white);
+    box-shadow: 0 0 0 1.5px var(--white), 0 0 0 2.5px var(--black);
+  }
+  .btn-dark {
+    background: var(--black);
+    color: var(--white);
+  }
+  .btn-dark .puck {
+    background: var(--white);
+    color: var(--black);
+    box-shadow: 0 0 0 1.5px var(--black), 0 0 0 2.5px var(--white);
+  }
+  .btn-ghost {
+    padding: 0 1.6rem;
+    color: var(--white);
+    background: rgb(255 247 247 / 0.04);
+    border: 1px solid var(--line-2);
+  }
+  .btn-ghost:hover {
+    background: rgb(255 247 247 / 0.1);
+  }
+  .btn-block {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* round arrow buttons */
+  .round {
+    display: inline-grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    flex: none;
+    transition:
+      background 0.3s var(--ease),
+      color 0.3s var(--ease),
+      transform 0.4s var(--spring);
+  }
+  .round svg {
+    width: 16px;
+    height: 16px;
+  }
+  .round:active {
+    transform: scale(0.94);
+  }
+  .round-white {
+    background: var(--white);
+    color: var(--black);
+  }
+  .round-orange {
+    background: var(--orange-soft);
+    color: var(--white);
+  }
+  .round-dark {
+    background: #1d1414;
+    color: var(--white);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 0 0 1px rgb(255 255 255 / 0.06);
+  }
+
+  /* outline tag pill */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    padding-inline: 1.3rem;
+    border-radius: 999px;
+    border: 1px solid rgb(255 247 247 / 0.55);
+    font-size: 0.86rem;
+    color: var(--gray);
+    white-space: nowrap;
+  }
+  .tag-sm {
+    height: 28px;
+    padding-inline: 0.85rem;
+    font-size: 0.72rem;
+    border-color: var(--line-2);
+  }
+
+  /* hairline */
+  .rule {
+    height: 1px;
+    background: var(--line-2);
+  }
+
+  /* bar meter, as in the Identity / Campaign Scope widgets */
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+  }
+  .bars i {
+    flex: 1;
+    min-width: 2px;
+    border-radius: 2px;
+    background: var(--orange-soft);
+  }
+  .bars i.off {
+    background: rgb(255 247 247 / 0.75);
+  }
+
+  /* light panel (contact) */
+  .panel-light {
+    background: var(--white);
+    color: var(--black);
+    border-radius: var(--radius-xl);
+  }
+  .field-light {
+    width: 100%;
+    min-height: 56px;
+    padding: 1rem 1.4rem;
+    border-radius: 999px;
+    background: var(--input);
+    border: 1px solid transparent;
+    color: var(--black);
+    font: inherit;
+    font-size: 16px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  textarea.field-light {
+    border-radius: 24px;
+    min-height: 130px;
+    resize: vertical;
+  }
+  select.field-light {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23100101' stroke-width='1.5'><path d='M1 1.5l5 5 5-5'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1.3rem center;
+    padding-right: 3rem;
+  }
+  .field-light::placeholder {
+    color: #9b9090;
+  }
+  .field-light:focus {
+    outline: none;
+    border-color: var(--orange-soft);
+    background: #f6f1f1;
+  }
+
+  /* giant wordmark */
+  .wordmark {
+    font-weight: 600;
+    line-height: 0.74;
+    letter-spacing: -0.02em;
+    font-size: clamp(6rem, 29vw, 30rem);
+    white-space: nowrap;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ───────── Motion ───────── */
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: none; }
+}
+@supports (animation-timeline: view()) {
+  [data-reveal] {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry calc(var(--i, 0) * 4%) entry calc(55% + var(--i, 0) * 4%);
+  }
+}
+@keyframes drift-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(8%, -6%, 0) scale(1.12); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1.05); }
+  50% { transform: translate3d(-10%, 8%, 0) scale(0.92); }
+}
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(255 81 0 / 0.55); }
+  50% { box-shadow: 0 0 0 7px rgb(255 81 0 / 0); }
+}
+.pulse {
+  animation: pulse-dot 2.4s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal] {
+    animation: none !important;
+  }
 }

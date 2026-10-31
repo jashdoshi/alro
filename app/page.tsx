@@ -1,497 +1,355 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ContactForm } from "@/components/contact-form";
-import { Ember } from "@/components/glass";
-import { Check } from "@/components/icons";
-import { FounderStatement, HeroCard, Rail, Rows, type Row } from "@/components/home-parts";
-import { GhostButton, GlyphWord, Label, SplitButton, Stagger, cx, st } from "@/components/ui";
-import { Walkthrough } from "@/components/walkthrough";
-import { ciStatus, faqGeneral, founderNote, founders, process, site } from "@/lib/content";
+import { Arrow, SectionHead, Swap } from "@/components/flow/bits";
+import { BrainDemo } from "@/components/home/brain-demo";
+import { Faq } from "@/components/home/faq";
+import { HeroWindows } from "@/components/home/hero-windows";
+import { Journey } from "@/components/home/journey";
+import { LabMedia } from "@/components/home/lab-media";
+import { routes } from "@/lib/routes";
 import { work } from "@/lib/work";
 
-/* ───────────── content arranged for this page ───────────── */
+/* Copy: alro website skeleton (sections 02–09). Footer/CTA (10) lives in the layout. */
 
-const practices: Row[] = [
+const services = [
   {
-    title: "Digital Experiences",
-    eyebrow: "Design & development",
-    image: "/ref-img/lamp.jpg",
-    aside: "From first conversation to a site you own.",
-    body: (
-      <>
-        <p>
-          Bespoke websites and digital products that translate a business’s identity into one considered, cohesive experience — designed around your
-          audience and your content, never adapted from a template.
-        </p>
-        <p>Bespoke websites · SaaS marketing sites · Founder and personal-brand sites · Product and interface design · Frontend development.</p>
-        <p>Responsive layouts rethought for phones, accessibility built in, restrained scripts, and a documented handover.</p>
-      </>
-    ),
-    cta: { href: "/digital-experiences", label: "Explore the practice" },
+    n: "01",
+    name: "Bespoke websites",
+    line: "An introduction worth making.",
+    body: "Your first meeting with a potential customer often happens without you in the room. We build distinctive websites that tell your story, earn attention and make that introduction count.",
+    chips: ["Strategy", "Design", "Development", "Interactions"],
+    cta: "Explore websites",
+    href: routes.websites,
   },
   {
-    title: "Intelligent Systems",
-    eyebrow: "AI & automation",
-    image: "/ref-img/visor.jpg",
-    aside: "Specific workflows. Bounded systems you can trust.",
-    body: (
-      <>
-        <p>
-          We connect tools, information and workflows so knowledge is easier to find and repetitive work gets lighter. Not an autonomous company or a
-          flawless “AI brain” — specific systems we can design, test and support.
-        </p>
-        <p>Custom AI workflows · Tool integrations · Internal tools and reporting.</p>
-        <p>Every engagement starts with one workflow, judged against criteria agreed before the build.</p>
-      </>
-    ),
-    cta: { href: "/intelligent-systems", label: "Explore the practice" },
-  },
-  {
-    title: "Company Intelligence",
-    eyebrow: "Flagship system · working prototype",
-    image: "/ref-img/desk.jpg",
-    aside: "Available as a scoped pilot.",
-    body: (
-      <>
-        <p>
-          A configurable system that connects approved company information, so people find answers, see what was decided, and notice what still needs
-          doing.
-        </p>
-        <p>Find what the company already knows · Surface what needs attention · Move work forward — once a person has approved it.</p>
-      </>
-    ),
-    cta: { href: "/company-intelligence", label: "See the flagship" },
+    n: "02",
+    name: "Company Brain",
+    line: "The answer is probably in there somewhere.",
+    body: "In a document. A spreadsheet. A conversation from last Tuesday. We connect your company knowledge and build intelligent workflows so your team can spend less time looking for things and more time getting things done.",
+    chips: ["Company Knowledge", "AI Assistants", "Automations", "Integrations"],
+    cta: "Explore Company Brain",
+    href: routes.companyBrain,
   },
 ];
 
-const faqEyebrows = ["Outcomes", "Pricing", "Ownership", "Third-party costs", "Hosting", "After launch", "Integrations", "Fit"];
-const faqImages = ["/ref-img/visor.jpg", "/ref-img/lamp.jpg", "/ref-img/hat.jpg", "/ref-img/desk.jpg"];
+const pillars = [
+  { t: "Connected knowledge", c: "The information your team needs, without the scavenger hunt.", icon: "nodes" },
+  { t: "Context-aware assistance", c: "Answers grounded in your business, not just plausible-sounding guesses.", icon: "chat" },
+  { t: "Workflow automation", c: "Less copying, chasing and updating. More time for the work that matters.", icon: "loop" },
+] as const;
+
+const process = [
+  { t: "Figure out the real problem.", c: "We get into your business, audience, existing tools and constraints. The goal is to solve the right problem, not just the most interesting one." },
+  { t: "Make the plan make sense.", c: "You’ll know what we’re building, why we’re building it, what it costs and what success should look like." },
+  { t: "Build. Test. Refine.", c: "We make the work tangible early, gather feedback and keep improving until it does what it’s supposed to." },
+  { t: "Launch isn’t the whole story.", c: "We hand over properly and can continue supporting, maintaining and improving what we’ve built." },
+];
+
+const philosophy = [
+  { t: "Taste matters.", c: "Especially when everyone has access to the same tools.", icon: "eye" },
+  { t: "It has to work.", c: "Beyond the demo and after the launch.", icon: "check" },
+  { t: "Keep it useful.", c: "Complexity isn’t the same thing as value.", icon: "minus" },
+] as const;
+
+const labKinds = { "company-knowledge-assistant": "assistant", "birthday-website": "story", "founder-one-portfolio": "design", "founder-two-portfolio": "systems" } as const;
 
 export default function Home() {
-  const [assistant, birthday, founderOne, founderTwo] = [work[0], work[1], work[2], work[3]];
-
   return (
     <>
-      {/* ═════════════ HERO ═════════════ */}
-      <section className="relative overflow-hidden ember-tl">
-        {/* soft glow behind the figure */}
+      {/* ═════════ 02 · HERO ═════════ */}
+      <section data-hero-root className="relative overflow-x-clip pb-[clamp(2rem,5vh,3.5rem)] pt-[clamp(7.5rem,17vh,10rem)]">
         <div
-          className="pointer-events-none absolute left-1/2 top-[10%] h-[70%] w-[60%] -translate-x-[10%] rounded-full opacity-60 blur-[90px]"
-          style={{ background: "radial-gradient(circle, #e83a25 0%, #6a0a02 50%, transparent 72%)" }}
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%]"
+          style={{ background: "radial-gradient(55% 85% at 15% 100%, rgb(17 17 17 / .05), transparent 70%), radial-gradient(45% 75% at 85% 100%, rgb(231 229 224 / .9), transparent 72%)" }}
           aria-hidden="true"
         />
+        <div className="wrap relative">
+          <span className="eyebrow wide" data-hero="kicker">
+            Independent creative technology studio
+          </span>
 
-        <div className="relative mx-auto max-w-[1600px]">
-          {/* figure */}
-          <div className="pointer-events-none absolute left-[2vw] top-[64px] z-[2] w-[150vw] md:left-[22%] md:top-[150px] md:w-[min(66vw,1080px)]">
-            <Image
-              src="/ref-img/hero-profile.png"
-              alt=""
-              width={1618}
-              height={820}
-              preload
-              sizes="(min-width:768px) 64vw, 150vw"
-              className="h-auto w-full [mask-image:linear-gradient(to_bottom,#000_82%,transparent_100%)]"
-            />
-          </div>
-
-          <div className="wrap relative z-[3] grid gap-10 pt-[64vw] md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)_minmax(0,0.85fr)] md:pt-32">
-            <div className="flex flex-col gap-6">
-              <Label className="text-white/80">Independent · Founder-led studio</Label>
-              <h1 className="t-hero max-w-[12ch] md:!text-[clamp(3rem,1.4rem+3.6vw,4.6rem)]" data-reveal>
-                Crafted with feeling. Built with purpose.
-              </h1>
-              <p className="t-justify max-w-[30ch] text-[0.82rem] leading-snug text-white/85 md:ml-[3.2rem]" data-reveal style={st(1)}>
-                Digital experiences with feeling and intelligent systems with purpose — designed and built by the founders themselves.
-              </p>
-              <div className="mt-2 flex flex-wrap gap-3" data-reveal style={st(2)}>
-                <SplitButton href="#contact" className="max-sm:w-full max-sm:justify-between">
-                  Start a conversation
-                </SplitButton>
-                <GhostButton href="#work" className="max-sm:hidden">
-                  See the work
-                </GhostButton>
-              </div>
-            </div>
-
-            <div className="hidden md:block" />
-
-            <div className="flex flex-col gap-10">
-              <div className="w-full max-w-[340px] md:ml-auto" data-reveal style={st(1)}>
-                <HeroCard />
-              </div>
-              <div className="grid grid-cols-2 gap-6 md:ml-auto md:max-w-[340px]">
-                <div data-reveal style={st(2)}>
-                  <p className="t-stat !text-[clamp(3rem,1.6rem+3.4vw,5rem)]">02</p>
-                  <p className="t-justify mt-3 text-[0.72rem] leading-snug text-white/75">Practices. How it looks, and how it works — one studio.</p>
-                </div>
-                <div data-reveal style={st(3)}>
-                  <p className="t-stat !text-[clamp(3rem,1.6rem+3.4vw,5rem)]">01</p>
-                  <p className="t-justify mt-3 text-[0.72rem] leading-snug text-white/75">Workflow first. Every system starts with a single one.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* giant wordmark (the figure sits in front) */}
-          <div className="relative z-[1] mt-12 overflow-hidden md:mt-0">
-            <p className="wordmark text-center text-white" aria-hidden="true">
-              ALRO
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ═════════════ PRACTICES ═════════════ */}
-      <section id="practices" className="section">
-        <div className="wrap">
-          <div className="grid items-end gap-8 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-            <Stagger
-              className="t-h1"
-              lines={["One studio for", <>how it looks, <GlyphWord word="AND" at={2} /></>, "how it works."]}
-              indent={["0", "0", "clamp(1rem, 9vw, 8rem)"]}
-            />
-            <p className="t-body t-justify max-w-[22rem] md:ml-auto" data-reveal style={st(1)}>
-              Most studios do one or the other. We do both — because the same care belongs on each side, and the people who notice one usually notice the
-              other.
-            </p>
-          </div>
-          <div className="mt-16 md:mt-20">
-            <Rows rows={practices} />
-          </div>
-        </div>
-      </section>
-
-      {/* ═════════════ POINT OF VIEW ═════════════ */}
-      <section className="section !pt-0">
-        <div className="wrap">
-          <div className="flex items-start justify-between gap-8">
-            <p className="t-quote t-justify max-w-[23em]" data-reveal>
-              <span className="text-gray-2">“A business should</span> work as thoughtfully as it presents itself. We design how it looks and build how it
-              works <span className="text-gray-2">— because the people who notice one</span> usually notice the other.”
-            </p>
-            <Label className="hidden whitespace-nowrap md:block">Point of view</Label>
-          </div>
-
-          <div className="mt-14 flex items-center gap-4" data-reveal>
-            <span className="relative h-16 w-16 overflow-hidden rounded-full" style={{ background: "radial-gradient(circle at 40% 30%, #ff6a1a, #e83a25 45%, #3a0401 90%)" }}>
-              <span className="absolute inset-0 grid place-items-center text-[0.7rem] font-semibold tracking-wide">ALRO</span>
+          <h1 className="mt-6 flex flex-col font-serif leading-[0.98] tracking-[-0.025em]">
+            <span className="block w-fit text-[clamp(2.5rem,7.6vw,8.2rem)] will-change-transform md:whitespace-nowrap" data-hero="top">
+              Make a good impression.
             </span>
-            <div>
-              <p className="text-[1.05rem] font-medium">Two founders</p>
-              <p className="text-[0.9rem] text-gray">Design &amp; Development / AI &amp; Systems</p>
+            <span className="block w-fit self-end text-right text-[clamp(2.5rem,7.6vw,8.2rem)] will-change-transform md:whitespace-nowrap" data-hero="bottom">
+              Then make{" "}
+              <span className="relative inline-block italic">
+                good on it.
+                <svg data-hero="underline" className="pointer-events-none absolute -bottom-[0.1em] left-[-3%] h-[0.26em] w-[106%] overflow-visible" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true">
+                  <path d="M4 14 C 60 4, 140 2, 200 8 S 280 16, 296 6" stroke="var(--grey)" strokeWidth="3" strokeLinecap="round" fill="none" vectorEffect="non-scaling-stroke" />
+                </svg>
+              </span>
+            </span>
+          </h1>
+
+          <div className="mt-[clamp(2.5rem,6vh,4.5rem)] grid items-end gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+            <div className="grid max-w-[30rem] gap-7">
+              <p className="text-[1.125rem] font-light leading-[1.625] text-ink/70" data-hero="text">
+                We build bespoke websites and AI-powered business systems. One helps your business show up better. The other helps your team work better.
+              </p>
+              <div className="flex flex-col items-start gap-6 sm:flex-row sm:flex-wrap sm:items-center">
+                <Link href={routes.services} className="btn liquid" data-hero="cta" data-magnetic="0.3">
+                  <Swap>Explore what we do</Swap>
+                  <Arrow />
+                </Link>
+                <Link href="#work" className="line-link" data-hero="cta">
+                  See our work
+                  <Arrow />
+                </Link>
+              </div>
+              <div className="hidden items-center gap-4 pt-6 lg:flex" data-hero="hint">
+                <span className="scroll-line" />
+                <span className="tiny">Scroll</span>
+              </div>
+            </div>
+            <div data-hero="aside">
+              <HeroWindows />
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-16 flex flex-wrap gap-3 md:ml-[40%]" data-reveal>
-            {["Bespoke websites", "Founder sites", "Product design", "AI workflows", "Tool integrations", "Internal tools"].map((t) => (
-              <span key={t} className="tag">
-                {t}
+      {/* velocity marquee — the two service vocabularies */}
+      <div className="marquee" data-marquee aria-hidden="true">
+        <div className="mtrack" data-marquee-track data-marquee-speed="70">
+          <div className="mgroup">
+            {["Strategy", "Design", "Development", "Interactions", "Company Knowledge", "AI Assistants", "Automations", "Integrations"].map((w) => (
+              <span key={w} className="contents">
+                <span>{w}</span>
+                <span className="dot">✦</span>
               </span>
             ))}
           </div>
-
-          <div className="mt-20 grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)]">
-            {[
-              ["How it presents", "The website is often the first thing people see. Too often it is a template that makes a considered business look like everyone else."],
-              ["How it works", "Behind it, knowledge sits in meeting notes, threads and documents, and the same updates are pieced together by hand every week."],
-              ["Why both", "The same care belongs on each side. One studio, one standard — and you work directly with the people doing the work."],
-            ].map(([h, b], k) => (
-              <div key={h} data-reveal style={st(k)}>
-                <p className="text-[1.15rem] font-medium">{h}</p>
-                <p className="t-body t-justify mt-4 max-w-[26rem]">{b}</p>
-              </div>
-            ))}
-          </div>
         </div>
-      </section>
+      </div>
 
-      {/* ═════════════ SELECTED WORK ═════════════ */}
-      <section id="work" className="section relative overflow-hidden scroll-mt-16">
-        <div
-          className="pointer-events-none absolute -right-[10%] top-0 h-[80%] w-[50%] rounded-full opacity-80 blur-[100px]"
-          style={{ background: "radial-gradient(circle, #ff5100 0%, #e83a25 35%, transparent 70%)" }}
-          aria-hidden="true"
-        />
-        <div className="wrap relative">
-          <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,3.2fr)] md:gap-10">
-            <span className="hidden md:block" />
-            <div className="flex items-start justify-between gap-6">
-              <div>
-                <Stagger className="t-h1" lines={["Proof, labelled", "for what it is."]} indent={["0", "clamp(1rem, 10vw, 9rem)"]} />
-                <p className="t-body t-justify mt-6 max-w-[22rem] md:ml-[clamp(1rem,10vw,9rem)]" data-reveal>
-                  ALRO is new. Instead of a logo wall, we show the founders’ own work and what we’re building now — who made each piece, and what it does and
-                  doesn’t demonstrate.
-                </p>
-              </div>
-              <Label className="hidden whitespace-nowrap md:block">Selected work</Label>
-            </div>
-          </div>
+      <div className="relative" data-flow-wrap>
+        {/* scroll-drawn line, services → connection */}
+        <svg data-flow-line className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full md:block" viewBox="0 0 1440 2400" preserveAspectRatio="none" fill="none" aria-hidden="true">
+          <path d="M1300 0 C 1420 300, 1100 520, 980 760 S 300 1000, 180 1300 S 420 1900, 760 2050 S 1240 2250, 1180 2400" stroke="var(--grey)" strokeOpacity=".35" strokeWidth="1.5" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+        </svg>
 
-          <div className="mt-14">
-            <Rail label="Craft evidence and capability evidence — never mixed up.">
-              <WorkCard href={`/work/${assistant.slug}`} n="01" item={assistant} tone="ember" />
-              <WorkCard href={`/work/${birthday.slug}`} n="02" item={birthday} tone="light" />
-              <WorkCard href={`/work/${founderOne.slug}`} n="03" item={founderOne} tone="photo" img="/ref-img/hat.jpg" />
-              <WorkCard href={`/work/${founderTwo.slug}`} n="04" item={founderTwo} tone="photo" img="/ref-img/visor.jpg" />
-            </Rail>
-          </div>
-          <div className="mt-10 flex md:justify-end">
-            <GhostButton href="/work">All work, and how we label it</GhostButton>
-          </div>
-        </div>
-      </section>
-
-      {/* ═════════════ COMPANY INTELLIGENCE ═════════════ */}
-      <section id="intelligence" className="section">
-        <div className="wrap">
-          <div className="flex items-start justify-between gap-8">
-            <Stagger
-              className="t-h1"
-              lines={["Your company’s", <GlyphWord key="k" word="KNOWLEDGE" at={5} />, "connected."]}
-              indent={["0", "0", "clamp(1rem, 12vw, 10rem)"]}
+        {/* ═════════ 03 · SERVICES ═════════ */}
+        <section id="services" className="section relative z-[1] scroll-mt-24">
+          <div className="wrap">
+            <SectionHead
+              eyebrow="Services · Two things, done properly"
+              title={
+                <>
+                  Two very different problems. <em>One place</em> to solve them.
+                </>
+              }
+              lead="Some businesses need a better way to show up. Others need a better way to get things done. We happen to be good at both."
             />
-            <Label className="hidden whitespace-nowrap text-right md:block">
-              Flagship system
-              <br />
-              Working prototype · scoped pilot
-            </Label>
-          </div>
-
-          <div className="mt-16 grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)_minmax(0,0.95fr)] md:gap-8">
-            {/* glass widgets over ember */}
-            <div className="relative order-2 flex flex-col justify-end gap-4 md:order-1">
-              <Ember className="-inset-6 rounded-[40px]" intensity={0.85} />
-              <div className="lg rounded-[20px] p-5" data-reveal>
-                <div className="flex items-center justify-between">
-                  <p className="t-label text-white/80">Extracted · Supplier review.pdf</p>
-                  <span className="pulse h-2 w-2 rounded-full bg-orange" />
-                </div>
-                <div className="mt-3 flex items-end gap-6">
-                  <p className="text-[2.2rem] font-light leading-none">
-                    3<span className="ml-1 text-[0.8rem] font-normal text-white/75">decisions</span>
-                  </p>
-                  <p className="text-[2.2rem] font-light leading-none">
-                    4<span className="ml-1 text-[0.8rem] font-normal text-white/75">actions</span>
-                  </p>
-                </div>
-                <div className="mt-5 flex items-center justify-between text-[0.72rem] text-white/80">
-                  <span>Read</span>
-                  <span>4 / 4 pages</span>
-                </div>
-                <div className="bars mt-2 h-6">
-                  {Array.from({ length: 34 }).map((_, k) => (
-                    <i key={k} className={k > 27 ? "off" : ""} style={{ height: "100%" }} />
-                  ))}
-                </div>
-              </div>
-              <div className="lg rounded-[20px] p-5" data-reveal style={st(1)}>
-                <p className="t-label text-white/80">Needs attention</p>
-                <p className="mt-2 text-[1.05rem] font-medium leading-snug">One action from Tuesday’s review has no owner.</p>
-                <div className="bars mt-4 h-14">
-                  {[40, 70, 35, 90, 55, 100, 30, 65, 80, 45, 95, 60, 38, 85, 50, 72, 28, 88, 42, 100, 58, 33, 76, 92].map((h, k) => (
-                    <i key={k} className={k % 5 === 4 ? "off" : ""} style={{ height: `${h}%` }} />
-                  ))}
-                </div>
-                <p className="mt-3 text-[0.68rem] text-white/65">Simulation · fictional data</p>
-              </div>
-            </div>
-
-            <div className="relative order-1 aspect-[4/5] overflow-hidden rounded-[22px] md:order-2 md:aspect-auto md:min-h-[560px]" data-reveal>
-              <Image src="/ref-img/desk.jpg" alt="" fill sizes="(min-width:768px) 34vw, 100vw" className="object-cover" />
-            </div>
-
-            <div className="order-3 flex flex-col justify-between gap-10">
-              <div className="t-body t-justify flex flex-col gap-4 text-white/80" data-reveal>
-                <p>
-                  Decisions sit in meeting notes, context in chat threads, commitments in email. Company Intelligence brings the approved parts together, so people
-                  spend less time piecing things back together.
-                </p>
-                <p>
-                  <span className="text-white">Find what the company already knows</span> — with a pointer back to where it came from.{" "}
-                  <span className="text-white">Surface what needs attention</span> — actions, owners and deadlines, flagged for a person to review.{" "}
-                  <span className="text-white">Move work forward</span> — drafts and tasks that wait for a person’s approval.
-                </p>
-              </div>
-              <SplitButton href="/company-intelligence" className="w-fit">
-                Explore Company Intelligence
-              </SplitButton>
-            </div>
-          </div>
-
-          {/* walkthrough on liquid glass */}
-          <div id="walkthrough" className="relative mt-24 scroll-mt-20 overflow-hidden rounded-[var(--radius-xl)] bg-black-2 px-3 py-10 sm:px-6 md:px-12 md:py-16">
-            <Ember />
-            <div className="relative">
-              <div className="mb-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-                <Stagger className="t-h2" lines={["From a document", "to an approved action."]} indent={["0", "clamp(1rem, 8vw, 6rem)"]} />
-                <p className="t-body t-justify max-w-[20rem] text-white/85">
-                  Five steps, about forty seconds on autoplay — or step through at your own pace. A scripted simulation with a fictional business.
-                </p>
-              </div>
-              <Walkthrough />
-            </div>
-          </div>
-
-          {/* what exists today — card trio */}
-          <div className="mt-24">
-            <div className="flex items-start justify-between gap-8">
-              <Stagger className="t-h2" lines={["What exists today —", "and what doesn’t yet."]} indent={["0", "clamp(1rem, 10vw, 8rem)"]} />
-              <Label className="hidden whitespace-nowrap md:block">What we’re building</Label>
-            </div>
-            <div className="mt-12 grid gap-4 md:grid-cols-3">
-              {ciStatus.map((t, k) => {
-                const tone = k === 0 ? "light" : k === 1 ? "ember" : "dark";
-                return (
-                  <article
-                    key={t.title}
-                    data-reveal
-                    style={st(k)}
-                    className={cx(
-                      "relative flex min-h-[420px] flex-col overflow-hidden rounded-[18px] p-6",
-                      tone === "light" && "bg-white text-black",
-                      tone === "dark" && "border border-line-2 bg-black-2",
-                    )}
-                  >
-                    {tone === "ember" && (
-                      <>
-                        <Image src="/ref-img/ember-blur.jpg" alt="" fill sizes="33vw" className="object-cover" />
-                        <div className="absolute inset-0 bg-black/10" />
-                      </>
-                    )}
-                    <div className="relative flex h-full flex-col">
-                      <p className="t-stat !text-[clamp(3rem,2rem+2.6vw,4.6rem)]">{["Today", "Pilot", "Later"][k]}</p>
-                      <p className="mt-auto pt-10 text-[1.05rem] font-semibold">{t.title}</p>
-                      <p className={cx("t-justify mt-2 text-[0.8rem] leading-snug", tone === "light" ? "text-black/60" : "text-white/80")}>{t.note}</p>
-                      <ul className="mt-5 flex flex-col gap-2">
-                        {t.items.map((it) => (
-                          <li key={it} className="flex gap-2.5 text-[0.8rem] leading-snug">
-                            <Check className={cx("mt-[3px] h-3 w-3 flex-none", tone === "light" ? "text-orange-soft" : "text-white")} />
-                            <span className={tone === "dark" ? "text-gray" : ""}>{it}</span>
-                          </li>
-                        ))}
-                      </ul>
+            <div className="mt-[clamp(2.5rem,5vw,4rem)] grid gap-6 lg:grid-cols-2">
+              {services.map((s, k) => (
+                <article key={s.n} className="panel glass flex flex-col gap-8" data-reveal="fade">
+                  <span className="ghost-num" data-drift aria-hidden="true">
+                    {s.n}
+                  </span>
+                  <div className="relative flex items-center justify-between">
+                    <span className="tiny">Service — {s.n}</span>
+                  </div>
+                  <div className="relative overflow-hidden rounded-2xl" data-clip>
+                    {k === 0 ? <WebsiteCraft /> : <BrainFlow />}
+                  </div>
+                  <div className="relative grid gap-4">
+                    <h3 className="h3">{s.name}</h3>
+                    <p className="font-serif text-[1.35rem] italic leading-snug text-ink/80">{s.line}</p>
+                    <p className="body max-w-[30rem]">{s.body}</p>
+                  </div>
+                  <div className="relative mt-auto flex flex-wrap items-center justify-between gap-6">
+                    <div className="chips">
+                      {s.chips.map((c) => (
+                        <span key={c} className="chip">
+                          {c}
+                        </span>
+                      ))}
                     </div>
-                  </article>
-                );
-              })}
+                    <Link href={s.href} className="line-link">
+                      {s.cta}
+                      <Arrow />
+                    </Link>
+                  </div>
+                </article>
+              ))}
             </div>
+          </div>
+        </section>
+
+        {/* ═════════ 04 · THE CONNECTION ═════════ */}
+        <section className="section relative z-[1] !pt-0">
+          <div className="wrap grid gap-[clamp(2.5rem,5vw,4rem)]">
+            <SectionHead
+              eyebrow="Why these services belong together"
+              title={
+                <>
+                  The website gets the conversation started. <em>What happens next</em> matters just as much.
+                </>
+              }
+              lead="A great website can bring someone to your door. But someone still has to respond, find the right information, prepare the next step and keep things moving. When it makes sense, we connect those pieces too."
+            />
+            <div data-reveal="fade">
+              <Journey />
+            </div>
+            <div className="flex flex-col gap-4 md:flex-row md:items-baseline md:justify-between" data-reveal="fade">
+              <p className="tiny">Illustrative workflow. Depends on each client’s tools, permissions and processes.</p>
+              <p className="font-serif text-[1.25rem] italic">Of course, you can work with us on either side. There’s no compulsory bundle.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* ═════════ 05 · COMPANY BRAIN ═════════ */}
+      <section id="brain" className="section relative overflow-hidden bg-mist/55">
+        <div className="wrap grid gap-[clamp(2.5rem,5vw,4rem)]">
+          <SectionHead
+            eyebrow="Company Brain · Make it concrete"
+            title={
+              <>
+                Your business knows a lot. <em>Finding it</em> shouldn’t be a full-time job.
+              </>
+            }
+            lead="Company Brain brings approved information from your existing tools into one useful place. Ask questions, find context and move work forward without digging through half your company’s digital history."
+          />
+          <div data-reveal="fade">
+            <BrainDemo />
+          </div>
+          <div className="grid gap-px overflow-hidden rounded-[1.5rem] border border-ink/12 bg-ink/12 md:grid-cols-3" data-reveal-group>
+            {pillars.map((p) => (
+              <div key={p.t} className="grid content-start gap-4 bg-paper p-7">
+                <span className="ico">
+                  <Icon name={p.icon} />
+                </span>
+                <h3 className="text-[1.5rem]">{p.t}</h3>
+                <p className="body">{p.c}</p>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-start">
+            <Link href={routes.companyBrain} className="line-link">
+              Explore Company Brain
+              <Arrow />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ═════════════ HOW WE WORK — glass rail on ember ═════════════ */}
-      <section className="relative overflow-hidden py-[var(--section)]">
-        <Ember intensity={0.9} />
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black to-transparent" aria-hidden="true" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black to-transparent" aria-hidden="true" />
-        <div className="wrap relative">
-          <div className="flex items-start justify-between gap-8">
-            <Stagger className="t-h1" lines={["Five steps,", "the same every time."]} indent={["0", "clamp(1rem, 10vw, 9rem)"]} />
-            <Label className="hidden whitespace-nowrap text-white/85 md:block">How we work</Label>
+      {/* ═════════ 06 · SELECTED WORK — from the lab ═════════ */}
+      <section id="work" className="section scroll-mt-24">
+        <div className="wrap">
+          <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <SectionHead
+              eyebrow="From the lab"
+              title={
+                <>
+                  Less talk. <em>More things</em> we’ve actually made.
+                </>
+              }
+              lead="A selection of websites, digital experiences and intelligent systems we’ve worked on."
+            />
+            <p className="tiny max-w-[22rem] md:text-right" data-reveal="fade">
+              Honestly labelled prototypes and the founders’ own work — no invented clients, testimonials or metrics.
+            </p>
           </div>
-          <ol className="no-scrollbar -mx-[var(--gutter)] mt-14 flex snap-x snap-mandatory gap-3 overflow-x-auto px-[var(--gutter)] pb-2 md:mx-0 md:grid md:grid-cols-5 md:overflow-visible md:px-0">
-            {process.map((p, k) => (
-              <li key={p.title} className="lg flex min-h-[300px] w-[78vw] flex-none snap-start flex-col rounded-[22px] p-6 sm:w-[46vw] md:w-auto" data-reveal style={st(k)}>
-                <span className="t-index text-white/80">[{String(k + 1).padStart(2, "0")}]</span>
-                <p className="mt-auto text-[1.25rem] font-medium uppercase">{p.title}</p>
-                <p className="t-justify mt-3 text-[0.8rem] leading-snug text-white/85">{p.body}</p>
-              </li>
-            ))}
-          </ol>
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
-            {[
-              ["Digital Experiences", "A scoped project, then a handover. Code, files and decisions are yours.", "/digital-experiences"],
-              ["Intelligent Systems", "Start small, prove it, then build. Each stage is scoped and priced on its own.", "/intelligent-systems"],
-            ].map(([t, b, h]) => (
-              <Link key={t} href={h} className="lg lg-dark group flex items-center justify-between gap-6 rounded-full py-3 pl-6 pr-3">
-                <span>
-                  <span className="block text-[0.72rem] uppercase tracking-[0.04em] text-white/70">{t}</span>
-                  <span className="block text-[0.88rem]">{b}</span>
-                </span>
-                <span className="round round-white flex-none transition-transform group-hover:rotate-45">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} aria-hidden="true">
-                    <path d="M7 17 17 7M8 7h9v9" />
-                  </svg>
-                </span>
+          <div className="mt-[clamp(3rem,6vw,5rem)] grid gap-12 md:grid-cols-2 md:[&>*:nth-child(even)]:mt-24">
+            {work.map((w) => (
+              <Link key={w.slug} href={`/work/${w.slug}`} className="pcard grid gap-4 no-underline" data-cursor-flower>
+                <div className="media" data-clip>
+                  <LabMedia kind={labKinds[w.slug as keyof typeof labKinds] ?? "design"} />
+                </div>
+                <div className="flex items-start justify-between gap-6" data-reveal="fade">
+                  <div className="grid gap-2">
+                    <h3 className="text-[1.6rem] leading-tight">{w.title}</h3>
+                    <span className="tiny">{w.label}</span>
+                    <p className="body max-w-[34rem]">{w.summary}</p>
+                  </div>
+                  <span className="mt-1 grid h-11 w-11 flex-none place-items-center rounded-full border border-ink/15">
+                    <Arrow className="h-4 w-4" />
+                  </span>
+                </div>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═════════════ PEOPLE ═════════════ */}
-      <section className="section relative overflow-hidden">
-        <div
-          className="pointer-events-none absolute -left-[10%] -top-[10%] h-[60%] w-[45%] rounded-full opacity-90 blur-[90px]"
-          style={{ background: "radial-gradient(circle, #ff5100 0%, #e83a25 40%, transparent 70%)" }}
-          aria-hidden="true"
-        />
-        <div className="wrap relative">
-          <Stagger className="t-h1 md:ml-[33%]" lines={["Small by design.", "Thoughtful", "by default."]} indent={["0", "0", "clamp(1rem, 12vw, 10rem)"]} />
-          <div className="mt-14">
-            <FounderStatement note={founderNote} founders={founders} />
-          </div>
-        </div>
-      </section>
-
-      {/* ═════════════ FAQ ═════════════ */}
-      <section className="section !pt-8">
-        <div className="wrap">
-          <div className="grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)_auto] md:gap-8">
-            <Label>FAQ</Label>
-            <Stagger className="t-h2" lines={["Questions before", "the first step"]} indent={["0", "clamp(1rem, 9vw, 7rem)"]} />
-          </div>
-          <div className="mt-14">
-            <Rows
-              size="md"
-              defaultOpen={1}
-              rows={faqGeneral.map((f, k) => ({
-                title: f.q,
-                eyebrow: faqEyebrows[k],
-                body: <p>{f.a}</p>,
-                image: faqImages[k % faqImages.length],
-              }))}
+      {/* ═════════ 07 · PROCESS ═════════ */}
+      <section className="section">
+        <div className="wrap grid gap-[clamp(3rem,6vw,5rem)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <SectionHead
+              eyebrow="Process"
+              title={
+                <>
+                  We like a good idea. <em>We like a working one more.</em>
+                </>
+              }
+              lead="We start by understanding what you’re trying to achieve, not by deciding which technology to throw at it."
             />
           </div>
+          <ol className="relative" data-steps>
+            <span className="absolute bottom-16 left-[1.625rem] top-2 w-px bg-ink/12" aria-hidden="true">
+              <span className="block h-full w-full origin-top bg-ink" data-steps-fill />
+            </span>
+            {process.map((p, k) => (
+              <li key={p.t} className={`step ${k === 0 ? "is-active" : ""}`} data-step>
+                <span className="dot">{String(k + 1).padStart(2, "0")}</span>
+                <div className="grid gap-3 pt-2.5">
+                  <h3 className="title text-[clamp(1.6rem,3vw,2.4rem)] leading-tight">{p.t}</h3>
+                  <p className="copy body max-w-[32rem]">{p.c}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* ═════════════ CONTACT — soft white panel ═════════════ */}
-      <section id="contact" className="scroll-mt-20 px-2.5 pb-2.5 md:px-4">
-        <div className="panel-light mx-auto max-w-[1600px] px-[var(--gutter)] py-14 md:py-20">
-          <div className="mx-auto grid max-w-[var(--max)] gap-14 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] md:gap-16">
-            <div className="flex flex-col justify-between gap-14">
-              <h2 className="t-h1 !text-[clamp(2rem,1rem+3.3vw,4rem)]">
-                Have something
-                <br />
-                worth building?
-              </h2>
-              <dl className="grid grid-cols-[6.5rem_1fr] gap-x-6 gap-y-5 text-[0.82rem]">
-                <dt className="pt-1 text-black/50">Email</dt>
-                <dd className="break-all text-[1.25rem]">
-                  <a href={`mailto:${site.email}`} className="hover:text-orange-soft">
-                    {site.email}
-                  </a>
-                </dd>
-                <dt className="pt-1 text-black/50">Studio</dt>
-                <dd className="text-[1.25rem]">Independent · Founder-led</dd>
-                <dt className="pt-1 text-black/50">Reply</dt>
-                <dd className="text-[1.25rem]">Personally, from the founders</dd>
-                <dt className="pt-0.5 text-black/50">Next</dt>
-                <dd className="flex flex-wrap gap-x-6 gap-y-1 text-[0.95rem]">
-                  {["A short conversation", "A written proposal"].map((x) => (
-                    <span key={x} className="underline underline-offset-4">
-                      {x}
-                    </span>
-                  ))}
-                </dd>
-              </dl>
-            </div>
-            <div className="flex flex-col gap-6">
-              <p className="text-[0.82rem] text-black/50">Contact</p>
-              <ContactForm />
-            </div>
+      {/* ═════════ 08 · PHILOSOPHY ═════════ */}
+      <section className="section bg-white/60">
+        <div className="wrap grid gap-[clamp(2.5rem,5vw,4rem)]">
+          <span className="eyebrow" data-reveal="fade">
+            Philosophy
+          </span>
+          <h2 className="manifesto max-w-[24ch]" data-scrub-words>
+            Good technology should make things simpler. Not give you another thing to manage.
+          </h2>
+          <div className="grid gap-8 md:grid-cols-[1fr_1fr] md:items-start">
+            <p className="lead" data-reveal="fade">
+              We care about how things look, how they work and whether they’re actually useful. Sometimes that means a custom-built system. Sometimes it means
+              making the tools you already have work better together.
+            </p>
+            <p className="quote" data-reveal="fade">
+              We don’t believe every problem needs an AI agent. Or another dashboard.
+            </p>
+          </div>
+          <div className="grid gap-10 border-t border-ink/12 pt-10 md:grid-cols-3" data-reveal-group>
+            {philosophy.map((p) => (
+              <div key={p.t} className="grid content-start gap-4">
+                <span className="ico">
+                  <Icon name={p.icon} />
+                </span>
+                <h3 className="text-[1.6rem]">{p.t}</h3>
+                <p className="body">{p.c}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═════════ 09 · FAQ ═════════ */}
+      <section className="section">
+        <div className="wrap grid gap-[clamp(2.5rem,5vw,4rem)] lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)]">
+          <SectionHead
+            eyebrow="FAQ"
+            title={
+              <>
+                Frequently asked <em>questions</em>
+              </>
+            }
+          />
+          <div data-reveal="fade">
+            <Faq />
           </div>
         </div>
       </section>
@@ -499,51 +357,109 @@ export default function Home() {
   );
 }
 
-/* ───────────── work card (reference stat-card trio) ───────────── */
-function WorkCard({
-  href,
-  n,
-  item,
-  tone,
-  img,
-}: {
-  href: string;
-  n: string;
-  item: (typeof work)[number];
-  tone: "ember" | "light" | "photo";
-  img?: string;
-}) {
+/* ───────── service-card visuals ───────── */
+
+/** Websites: exceptional web craft — a type-led page in a browser frame. */
+function WebsiteCraft() {
   return (
-    <Link
-      href={href}
-      data-card
-      className={cx(
-        "group relative flex h-[400px] w-[78vw] flex-none snap-start flex-col overflow-hidden rounded-[16px] p-5 sm:w-[46vw] md:h-[420px] md:w-[calc((100%-2rem)/3)]",
-        tone === "light" ? "bg-white text-black" : "text-white",
-      )}
-    >
-      {tone === "ember" && <Image src="/ref-img/ember-blur.jpg" alt="" fill sizes="33vw" className="object-cover" />}
-      {tone === "photo" && img && (
-        <>
-          <Image src={img} alt="" fill sizes="33vw" className="object-cover transition-transform duration-[1.2s] group-hover:scale-105" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-        </>
-      )}
-      <div className="relative flex h-full flex-col">
-        <div className="flex items-start justify-between">
-          <p className="t-stat !text-[clamp(3.2rem,2rem+2.8vw,4.8rem)]">{n}</p>
-          <span className={cx("round !h-10 !w-10 transition-transform group-hover:rotate-45", tone === "light" ? "!bg-black !text-white" : "round-white")}>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} aria-hidden="true">
-              <path d="M7 17 17 7M8 7h9v9" />
-            </svg>
-          </span>
+    <div className="relative aspect-[16/10] bg-[linear-gradient(135deg,#f1efea,#dedbd4)] p-[6%]" data-clip-img>
+      <div className="window h-full">
+        <div className="window-bar">
+          <i />
+          <i />
+          <i />
         </div>
-        <div className="mt-auto">
-          <p className="text-[1rem] font-semibold leading-tight">{item.title}</p>
-          <p className={cx("t-justify mt-2 text-[0.78rem] leading-snug", tone === "light" ? "text-black/60" : "text-white/80")}>{item.summary}</p>
-          <span className={cx("tag tag-sm mt-4", tone === "light" ? "!border-black/25 !text-black/70" : "!border-white/40 !text-white/85")}>{item.label}</span>
+        <div className="grid h-[calc(100%-31px)] grid-cols-[1.3fr_1fr] gap-4 p-4">
+          <div className="flex flex-col justify-between">
+            <p className="tiny !text-[8px]">Studio — since 2014</p>
+            <p className="font-serif text-[clamp(1rem,2.2vw,1.6rem)] leading-[1.02]">
+              Made for <em>people</em> who notice.
+            </p>
+            <div className="flex gap-1.5">
+              <span className="h-5 w-16 rounded-full bg-ink" />
+              <span className="h-5 w-12 rounded-full border border-ink/30" />
+            </div>
+          </div>
+          <div className="rounded-md" style={{ background: "radial-gradient(120% 90% at 30% 15%, #d9d6cf 0%, #a9a59c 45%, #5f5d58 100%)" }} />
         </div>
       </div>
-    </Link>
+    </div>
+  );
+}
+
+/** Company Brain: a credible sourced-answer workflow. */
+function BrainFlow() {
+  return (
+    <div className="relative grid aspect-[16/10] place-items-center bg-[linear-gradient(135deg,#1a1a1a,#3a3a38)] p-[6%]" data-clip-img>
+      <div className="grid w-full max-w-[86%] grid-cols-[auto_1fr] items-center gap-4">
+        <div className="grid gap-2">
+          {["Drive", "CRM", "Email", "Notes"].map((s) => (
+            <span key={s} className="rounded-full border border-mist/25 px-3 py-1 text-center text-[9px] uppercase tracking-[0.15em] text-mist/75">
+              {s}
+            </span>
+          ))}
+        </div>
+        <div className="rounded-xl bg-white p-3.5 shadow-2xl">
+          <p className="ml-auto w-fit rounded-lg bg-ink/5 px-2.5 py-1.5 text-[10px]">Where did we land on the supplier terms?</p>
+          <p className="mt-2.5 font-serif text-[clamp(0.85rem,1.6vw,1.05rem)] leading-snug">Net-30 agreed, with a review after the first quarter.</p>
+          <div className="mt-2 flex gap-1.5">
+            {["Email · 12 Mar", "Contract v2"].map((s) => (
+              <span key={s} className="whitespace-nowrap rounded-full border border-ink/15 px-2 py-0.5 text-[8px] uppercase tracking-[0.12em] text-ink/55">
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ───────── icons (line, 1.5px) ───────── */
+function Icon({ name }: { name: "nodes" | "chat" | "loop" | "eye" | "check" | "minus" }) {
+  const p = { fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      {name === "nodes" && (
+        <g {...p}>
+          <circle cx="5" cy="6" r="2" />
+          <circle cx="19" cy="6" r="2" />
+          <circle cx="12" cy="18" r="2" />
+          <path d="M7 6h10M6 8l5 8M18 8l-5 8" />
+        </g>
+      )}
+      {name === "chat" && (
+        <g {...p}>
+          <path d="M4 5h16v11H9l-5 4z" />
+          <path d="M9 11l2 2 4-4" />
+        </g>
+      )}
+      {name === "loop" && (
+        <g {...p}>
+          <path d="M4 12a8 8 0 0 1 14-5.3L20 9" />
+          <path d="M20 4v5h-5" />
+          <path d="M20 12a8 8 0 0 1-14 5.3L4 15" />
+          <path d="M4 20v-5h5" />
+        </g>
+      )}
+      {name === "eye" && (
+        <g {...p}>
+          <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
+          <circle cx="12" cy="12" r="3" />
+        </g>
+      )}
+      {name === "check" && (
+        <g {...p}>
+          <circle cx="12" cy="12" r="9" />
+          <path d="M8 12.5l2.5 2.5L16 9.5" />
+        </g>
+      )}
+      {name === "minus" && (
+        <g {...p}>
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <path d="M8 12h8" />
+        </g>
+      )}
+    </svg>
   );
 }

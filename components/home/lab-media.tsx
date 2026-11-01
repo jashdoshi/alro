@@ -19,8 +19,8 @@ export function LabMedia({ kind }: { kind: Kind }) {
 
 const bg = {
   assistant: "linear-gradient(135deg,#1c1c1c 0%,#3a3a38 100%)",
-  story: "linear-gradient(135deg,#e9e6df 0%,#cfcac0 100%)",
-  design: "linear-gradient(135deg,#f3f2ee 0%,#dcd9d2 100%)",
+  story: "linear-gradient(135deg,var(--scene-a) 0%,var(--scene-c) 100%)",
+  design: "linear-gradient(135deg,var(--scene-a) 0%,var(--scene-b) 100%)",
   systems: "linear-gradient(135deg,#2a2a28 0%,#111 100%)",
 };
 
@@ -76,7 +76,7 @@ function Scene({ kind, alt }: { kind: Kind; alt: boolean }) {
             <div key={k} className="aspect-[4/3] rounded-md bg-white p-2 shadow-md" style={{ transform: alt ? `translateY(${(k % 3) * -6}px)` : "none", transition: "transform .7s var(--quint)" }}>
               <div className="h-1.5 w-1/2 rounded-full bg-ink/70" />
               <div className="mt-1.5 h-1 w-3/4 rounded-full bg-ink/20" />
-              <div className="mt-2 h-[45%] rounded-sm" style={{ background: k % 2 ? "#d8d5ce" : "#bfbab0" }} />
+              <div className="mt-2 h-[45%] rounded-sm" style={{ background: k % 2 ? "rgb(var(--ink-rgb) / .16)" : "rgb(var(--ink-rgb) / .28)" }} />
             </div>
           ))}
         </div>

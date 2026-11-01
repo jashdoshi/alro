@@ -85,7 +85,7 @@ export function HeroWindows() {
                 <p className="mt-2 max-w-[22ch] text-[10px] leading-snug text-ink/55">Furniture made slowly, for rooms that are lived in.</p>
                 <span
                   className="mt-3 inline-block rounded-full border px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.15em] transition-colors duration-500"
-                  style={{ background: site ? "var(--ink)" : "transparent", color: site ? "var(--paper)" : "var(--ink)", borderColor: "rgb(17 17 17 / .3)" }}
+                  style={{ background: site ? "var(--ink)" : "transparent", color: site ? "var(--paper)" : "var(--ink)", borderColor: "rgb(var(--ink-rgb) / .3)" }}
                 >
                   View collection
                 </span>

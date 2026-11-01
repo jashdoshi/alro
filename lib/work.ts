@@ -11,9 +11,8 @@ export type WorkItem = {
   summary: string;
   label: string;
   kind: WorkKind;
-  practice: "Digital Experiences" | "Intelligent Systems";
+  practice: "Websites" | "Intelligent systems";
   year: string;
-  image: string;
   readingNote: string;
   sections: { title: string; body?: string; list?: string[] }[];
   externalLink?: { label: string; href: string };
@@ -22,7 +21,7 @@ export type WorkItem = {
 export const workKinds: Record<WorkKind, { title: string; body: string }> = {
   portfolio: {
     title: "Previous work by the founders",
-    body: "Made by each founder before ALRO, with their role and context stated. Not presented as studio commissions.",
+    body: "Made by each founder before alro., with their role and context stated. Not presented as studio commissions.",
   },
   experiment: {
     title: "Independent experiments",
@@ -41,9 +40,8 @@ export const work: WorkItem[] = [
     summary: "A working assistant that answers questions from sample company documents, cites its sources, and prepares a weekly briefing.",
     label: "Product concept · Technical demonstration",
     kind: "demonstration",
-    practice: "Intelligent Systems",
+    practice: "Intelligent systems",
     year: "[Year]",
-    image: "/img/laptop-night.jpg",
     readingNote: "Built with fictional sample documents. It has not been deployed for a client, and no business outcomes have been measured.",
     sections: [
       {
@@ -78,9 +76,8 @@ export const work: WorkItem[] = [
     summary: "A personal, narrative website made as a gift — an exercise in story, personalisation, motion and mobile layout.",
     label: "Independent project · Not client work",
     kind: "experiment",
-    practice: "Digital Experiences",
+    practice: "Websites",
     year: "[Year]",
-    image: "/img/candle-desk.jpg",
     readingNote: "A personal project with an audience of one. No user testing or measurement took place.",
     sections: [
       {
@@ -107,13 +104,12 @@ export const work: WorkItem[] = [
   {
     slug: "founder-one-portfolio",
     title: "Selected work by [Founder One]",
-    summary: "Design and frontend work made before ALRO, with role and context clearly attributed.",
+    summary: "Design and frontend work made before alro., with role and context clearly attributed.",
     label: "Individual portfolio · [Founder One]",
     kind: "portfolio",
-    practice: "Digital Experiences",
+    practice: "Websites",
     year: "[Years]",
-    image: "/img/sketch.jpg",
-    readingNote: "This work predates ALRO and was not commissioned from the studio.",
+    readingNote: "This work predates alro. and was not commissioned from the studio.",
     sections: [
       { title: "Context", body: "[For each piece: what it was, and whether it was made independently, for an employer, or with another team.]" },
       { title: "Role", body: "[What this founder personally did on each piece.]" },
@@ -121,20 +117,19 @@ export const work: WorkItem[] = [
       { title: "The approach", body: "[The key design or technical decisions, and why.]" },
       { title: "The work", body: "[Selected images, at their native proportions.]" },
       { title: "What it demonstrates", body: "[Specific, substantiated capabilities.]" },
-      { title: "Limitations", body: "This work predates ALRO and was not commissioned from the studio." },
+      { title: "Limitations", body: "This work predates alro. and was not commissioned from the studio." },
     ],
     externalLink: { label: "View the full portfolio", href: "#" },
   },
   {
     slug: "founder-two-portfolio",
     title: "Selected work by [Founder Two]",
-    summary: "Systems, automation and engineering work made before ALRO, with role and context clearly attributed.",
+    summary: "Systems, automation and engineering work made before alro., with role and context clearly attributed.",
     label: "Individual portfolio · [Founder Two]",
     kind: "portfolio",
-    practice: "Intelligent Systems",
+    practice: "Intelligent systems",
     year: "[Years]",
-    image: "/img/keyboard.jpg",
-    readingNote: "This work predates ALRO and was not commissioned from the studio.",
+    readingNote: "This work predates alro. and was not commissioned from the studio.",
     sections: [
       { title: "Context", body: "[For each piece: what it was, and whether it was made independently, for an employer, or with another team.]" },
       { title: "Role", body: "[What this founder personally did on each piece.]" },
@@ -142,7 +137,7 @@ export const work: WorkItem[] = [
       { title: "The approach", body: "[The key technical decisions, and why.]" },
       { title: "The work", body: "[Diagrams, screenshots or demos.]" },
       { title: "What it demonstrates", body: "[Specific, substantiated capabilities.]" },
-      { title: "Limitations", body: "This work predates ALRO and was not commissioned from the studio." },
+      { title: "Limitations", body: "This work predates alro. and was not commissioned from the studio." },
     ],
     externalLink: { label: "View the full portfolio", href: "#" },
   },

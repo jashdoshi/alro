@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import type { ReactNode } from "react";
-import { Chip, Num } from "@/components/ui-legacy";
-import { site } from "@/lib/content";
+import { PageHero } from "@/components/flow/page-hero";
+import { email } from "@/lib/routes";
 
 export const metadata: Metadata = {
   title: "Privacy",
@@ -10,9 +9,13 @@ export const metadata: Metadata = {
 };
 
 const Email = () => (
-  <a href={`mailto:${site.email}`} className="text-fg underline decoration-accent/60 underline-offset-4 transition-colors hover:text-accent">
-    {site.email}
+  <a href={`mailto:${email}`} className="text-ink underline decoration-ink/30 underline-offset-4 transition-colors hover:decoration-ink">
+    {email}
   </a>
+);
+
+const Placeholder = ({ children }: { children: ReactNode }) => (
+  <p className="rounded-2xl border border-dashed border-ink/25 px-5 py-4 text-[15px] text-ink/55">{children}</p>
 );
 
 const sections: { id: string; title: string; body: ReactNode }[] = [
@@ -21,7 +24,7 @@ const sections: { id: string; title: string; body: ReactNode }[] = [
     title: "Who we are",
     body: (
       <p>
-        This website is operated by [legal entity name], [registered address] (“ALRO”, “we”). For anything privacy-related, write to <Email />.
+        This website is operated by [legal entity name], [registered address] (“alro.”, “we”). For anything privacy-related, write to <Email />.
       </p>
     ),
   },
@@ -33,9 +36,9 @@ const sections: { id: string; title: string; body: ReactNode }[] = [
         <p>When you use the contact form, we receive only what you choose to give us:</p>
         <ul>
           <li>your name and work email address;</li>
-          <li>your company or website, if you add it;</li>
+          <li>your company or current website, if you add it;</li>
           <li>
-            the kind of project, your description of it, and any optional details you include, such as audience, launch window, tools in use, data
+            what your enquiry is about, your description of it, and any optional details you include, such as a launch window, tools in use, data
             sensitivity, deployment needs or a budget range.
           </li>
         </ul>
@@ -51,8 +54,12 @@ const sections: { id: string; title: string; body: ReactNode }[] = [
           We use [Vercel Web Analytics] to count page views and a few anonymous events, such as a contact form being sent. It uses no cookies, doesn’t
           identify you, and doesn’t follow you across other websites. Your form answers are never sent to it.
         </p>
-        <p>This site stores nothing in your browser. The analytics above, if enabled, is the only measurement that applies to your visit.</p>
-        <p className="placeholder">[Confirm the hosting provider and any server logs it keeps.]</p>
+        <p>
+          This site sets no cookies of its own. It keeps two small preferences in your browser: a flag in session storage so the opening animation
+          plays only once per visit (cleared when you close the tab), and your light or dark theme choice in local storage, if you change it. Neither
+          holds personal information or is ever sent to us. The analytics above, if enabled, is the only measurement that applies to your visit.
+        </p>
+        <Placeholder>[Confirm the hosting provider and any server logs it keeps.]</Placeholder>
       </>
     ),
   },
@@ -71,8 +78,8 @@ const sections: { id: string; title: string; body: ReactNode }[] = [
     title: "Where it goes and how long we keep it",
     body: (
       <p>
-        Form submissions reach our inbox through [service provider]. We keep enquiries for [period]. If we begin working together, we keep them for
-        as long as that work and any legal obligations require.
+        Form submissions reach our inbox through [service provider]. We keep enquiries for [period]. If we begin working together, we keep them for as
+        long as that work and any legal obligations require.
       </p>
     ),
   },
@@ -88,41 +95,29 @@ const sections: { id: string; title: string; body: ReactNode }[] = [
 ];
 
 const prose =
-  "flex flex-col gap-4 text-[1rem] leading-relaxed text-fg-2 [&_ul]:flex [&_ul]:flex-col [&_ul]:gap-2.5 [&_li]:relative [&_li]:pl-5 [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:top-[0.7em] [&_li]:before:h-1.5 [&_li]:before:w-1.5 [&_li]:before:rounded-full [&_li]:before:bg-accent [&_li]:before:content-[''] [&_.placeholder]:rounded-[14px] [&_.placeholder]:border [&_.placeholder]:border-dashed [&_.placeholder]:border-line-2 [&_.placeholder]:px-4 [&_.placeholder]:py-3 [&_.placeholder]:text-[0.92rem] [&_.placeholder]:text-fg-3";
+  "grid gap-5 text-[1.0625rem] leading-[1.75] text-ink/75 [&_ul]:m-0 [&_ul]:grid [&_ul]:list-none [&_ul]:gap-3 [&_ul]:p-0 [&_li]:relative [&_li]:pl-7 [&_li]:before:absolute [&_li]:before:left-0 [&_li]:before:top-[0.85em] [&_li]:before:h-px [&_li]:before:w-4 [&_li]:before:bg-ink/40 [&_li]:before:content-['']";
 
 export default function PrivacyPage() {
   return (
     <>
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 fade-b" aria-hidden="true">
-          <Image src="/img/blinds.jpg" alt="" fill preload sizes="100vw" className="object-cover opacity-35" />
-          <div className="absolute inset-0 bg-gradient-to-b from-bg/60 to-bg/20" />
-        </div>
-        <div className="wrap relative flex flex-col items-start gap-5 pb-14 pt-36 md:pb-20 md:pt-44">
-          <span data-reveal>
-            <Chip>Privacy</Chip>
-          </span>
-          <h1 className="display max-w-[14ch]" data-reveal style={{ ["--i" as string]: 1 }}>
-            Privacy, in plain language.
-          </h1>
-          <p className="lead max-w-[52ch]" data-reveal style={{ ["--i" as string]: 2 }}>
-            What this website collects, why we use it, where it goes, and how to ask us to change or delete it.
-          </p>
-          <span className="tag neutral" data-reveal style={{ ["--i" as string]: 3 }}>
-            Last updated: [date]
-          </span>
-        </div>
-      </section>
+      <PageHero
+        size="md"
+        eyebrow="Privacy"
+        top="Privacy, in"
+        bottom={<em>plain language.</em>}
+        lead="What this website collects, why we use it, where it goes, and how to ask us to change or delete it."
+        actions={<span className="tiny">Last updated: [date]</span>}
+      />
 
-      <section className="wrap pb-[var(--section)]">
-        <div className="grid gap-10 md:grid-cols-[220px_minmax(0,1fr)] md:gap-14 lg:grid-cols-[260px_minmax(0,720px)]">
-          <nav aria-label="On this page" className="hidden md:sticky md:top-28 md:block md:self-start">
-            <p className="eyebrow mb-4">On this page</p>
-            <ol className="flex flex-col gap-2.5 border-l border-line pl-4">
+      <section className="section !pt-[clamp(1rem,3vw,2rem)]">
+        <div className="wrap grid gap-12 lg:grid-cols-[minmax(0,16rem)_minmax(0,46rem)] lg:justify-between lg:gap-20">
+          <nav aria-label="On this page" className="hidden lg:sticky lg:top-32 lg:block lg:self-start">
+            <p className="eyebrow mb-5">On this page</p>
+            <ol className="m-0 grid list-none gap-3 border-l border-ink/12 p-0 pl-5">
               {sections.map((s, k) => (
                 <li key={s.id}>
-                  <a href={`#${s.id}`} className="flex gap-3 text-[0.92rem] text-fg-2 transition-colors hover:text-fg">
-                    <span className="tabular-nums text-fg-3">{String(k + 1).padStart(2, "0")}</span>
+                  <a href={`#${s.id}`} className="flex gap-3 text-[14px] text-ink/65 no-underline transition-colors hover:text-ink">
+                    <span className="tabular-nums text-ink/35">{String(k + 1).padStart(2, "0")}</span>
                     {s.title}
                   </a>
                 </li>
@@ -130,20 +125,16 @@ export default function PrivacyPage() {
             </ol>
           </nav>
 
-          <div className="flex min-w-0 flex-col gap-4">
+          <div className="grid min-w-0">
             {sections.map((s, k) => (
-              <article
-                key={s.id}
-                id={s.id}
-                className="card scroll-mt-24 flex flex-col gap-5 rounded-[24px] p-6 md:p-8"
-                data-reveal
-                style={{ ["--i" as string]: Math.min(k, 2) }}
-              >
-                <div className="flex items-center gap-4">
-                  <Num n={k + 1} className={k === 0 ? "!border-accent !text-accent" : ""} />
-                  <h2 className="h4 text-[1.35rem]">{s.title}</h2>
+              <article key={s.id} id={s.id} className="grid scroll-mt-28 gap-5 border-t border-ink/12 py-10 first:border-t-0 first:pt-0 md:grid-cols-[4rem_minmax(0,1fr)] md:gap-6" data-reveal="fade">
+                <span className="font-serif text-[2rem] italic leading-none text-ink/25" aria-hidden="true">
+                  {String(k + 1).padStart(2, "0")}
+                </span>
+                <div className="grid gap-5">
+                  <h2 className="text-[clamp(1.6rem,3vw,2.1rem)] leading-tight">{s.title}</h2>
+                  <div className={prose}>{s.body}</div>
                 </div>
-                <div className={prose}>{s.body}</div>
               </article>
             ))}
           </div>

@@ -14,8 +14,8 @@ export const site = {
 export const nav = {
   left: [
     { href: "/work", label: "Work" },
-    { href: "/digital-experiences", label: "Digital Experiences" },
-    { href: "/intelligent-systems", label: "Intelligent Systems" },
+    { href: "/digital-experiences", label: "Websites" },
+    { href: "/intelligent-systems", label: "Intelligent systems" },
   ],
   right: [
     { href: "/company-intelligence", label: "Company Intelligence" },
@@ -26,8 +26,8 @@ export const nav = {
 export const footerMenu = [
   { href: "/", label: "Home" },
   { href: "/work", label: "Work" },
-  { href: "/digital-experiences", label: "Digital Experiences" },
-  { href: "/intelligent-systems", label: "Intelligent Systems" },
+  { href: "/digital-experiences", label: "Websites" },
+  { href: "/intelligent-systems", label: "Intelligent systems" },
   { href: "/company-intelligence", label: "Company Intelligence" },
   { href: "/studio", label: "Studio" },
   { href: "/contact", label: "Contact" },
@@ -59,7 +59,7 @@ export const process = [
 
 export const tracks = {
   digital: {
-    label: "Digital Experiences",
+    label: "Websites",
     title: "A scoped project, then a handover",
     steps: [
       { title: "Written proposal", body: "Deliverables, revision rounds, timeline and price — agreed before anything starts." },
@@ -69,7 +69,7 @@ export const tracks = {
     ],
   },
   systems: {
-    label: "Intelligent Systems",
+    label: "Intelligent systems",
     title: "Start small, prove it, then build",
     steps: [
       { title: "Discovery", body: "We map one workflow: the tools, the data, and where it should run." },
@@ -82,7 +82,7 @@ export const tracks = {
 
 export const deployment = {
   options: [
-    { title: "Managed cloud", body: "Runs in an environment operated by ALRO or its hosting provider, with every data flow documented for you." },
+    { title: "Managed cloud", body: "Runs in an environment operated by alro. or its hosting provider, with every data flow documented for you." },
     { title: "Your cloud account", body: "Deployed inside cloud infrastructure your company already owns and controls." },
     { title: "Your own hardware", body: "Runs on infrastructure you operate, once the architecture and operating requirements are agreed." },
   ],
@@ -222,16 +222,14 @@ export const founders = [
     role: "Design & Development",
     bio: "[A short, factual description of this founder’s strengths in visual design, interface design and frontend development.]",
     href: "/work/founder-one-portfolio",
-    image: "/img/sketch.jpg",
   },
   {
     name: "[Founder Two]",
     role: "AI & Systems",
     bio: "[A short, factual description of this founder’s strengths in AI systems, integrations and automation.]",
     href: "/work/founder-two-portfolio",
-    image: "/img/keyboard.jpg",
   },
 ];
 
 export const founderNote =
-  "[A short personal note in your own words: why you started ALRO, and what a client can expect from working with the two of you.]";
+  "[A short personal note in your own words: why you started alro, and what a client can expect from working with the two of you.]";

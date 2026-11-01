@@ -3,7 +3,6 @@ import { Arrow, SectionHead, Swap } from "@/components/flow/bits";
 import { BrainDemo } from "@/components/home/brain-demo";
 import { Faq } from "@/components/home/faq";
 import { HeroWindows } from "@/components/home/hero-windows";
-import { Journey } from "@/components/home/journey";
 import { LabMedia } from "@/components/home/lab-media";
 import { routes } from "@/lib/routes";
 import { work } from "@/lib/work";
@@ -59,15 +58,11 @@ export default function Home() {
       <section data-hero-root className="relative overflow-x-clip pb-[clamp(2rem,5vh,3.5rem)] pt-[clamp(7.5rem,17vh,10rem)]">
         <div
           className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%]"
-          style={{ background: "radial-gradient(55% 85% at 15% 100%, rgb(17 17 17 / .05), transparent 70%), radial-gradient(45% 75% at 85% 100%, rgb(231 229 224 / .9), transparent 72%)" }}
+          style={{ background: "radial-gradient(55% 85% at 15% 100%, rgb(var(--ink-rgb) / .05), transparent 70%), radial-gradient(45% 75% at 85% 100%, rgb(var(--mist-rgb) / .9), transparent 72%)" }}
           aria-hidden="true"
         />
         <div className="wrap relative">
-          <span className="eyebrow wide" data-hero="kicker">
-            Independent creative technology studio
-          </span>
-
-          <h1 className="mt-6 flex flex-col font-serif leading-[0.98] tracking-[-0.025em]">
+          <h1 className="flex flex-col font-serif leading-[0.98] tracking-[-0.025em]">
             <span className="block w-fit text-[clamp(2.5rem,7.6vw,8.2rem)] will-change-transform md:whitespace-nowrap" data-hero="top">
               Make a good impression.
             </span>
@@ -124,7 +119,7 @@ export default function Home() {
       </div>
 
       <div className="relative" data-flow-wrap>
-        {/* scroll-drawn line, services → connection */}
+        {/* scroll-drawn line behind the services */}
         <svg data-flow-line className="pointer-events-none absolute inset-0 z-0 hidden h-full w-full md:block" viewBox="0 0 1440 2400" preserveAspectRatio="none" fill="none" aria-hidden="true">
           <path d="M1300 0 C 1420 300, 1100 520, 980 760 S 300 1000, 180 1300 S 420 1900, 760 2050 S 1240 2250, 1180 2400" stroke="var(--grey)" strokeOpacity=".35" strokeWidth="1.5" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
         </svg>
@@ -173,28 +168,6 @@ export default function Home() {
                   </div>
                 </article>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ═════════ 04 · THE CONNECTION ═════════ */}
-        <section className="section relative z-[1] !pt-0">
-          <div className="wrap grid gap-[clamp(2.5rem,5vw,4rem)]">
-            <SectionHead
-              eyebrow="Why these services belong together"
-              title={
-                <>
-                  The website gets the conversation started. <em>What happens next</em> matters just as much.
-                </>
-              }
-              lead="A great website can bring someone to your door. But someone still has to respond, find the right information, prepare the next step and keep things moving. When it makes sense, we connect those pieces too."
-            />
-            <div data-reveal="fade">
-              <Journey />
-            </div>
-            <div className="flex flex-col gap-4 md:flex-row md:items-baseline md:justify-between" data-reveal="fade">
-              <p className="tiny">Illustrative workflow. Depends on each client’s tools, permissions and processes.</p>
-              <p className="font-serif text-[1.25rem] italic">Of course, you can work with us on either side. There’s no compulsory bundle.</p>
             </div>
           </div>
         </section>
@@ -362,7 +335,7 @@ export default function Home() {
 /** Websites: exceptional web craft — a type-led page in a browser frame. */
 function WebsiteCraft() {
   return (
-    <div className="relative aspect-[16/10] bg-[linear-gradient(135deg,#f1efea,#dedbd4)] p-[6%]" data-clip-img>
+    <div className="relative aspect-[16/10] bg-[linear-gradient(135deg,var(--scene-a),var(--scene-b))] p-[6%]" data-clip-img>
       <div className="window h-full">
         <div className="window-bar">
           <i />

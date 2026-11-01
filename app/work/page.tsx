@@ -1,112 +1,117 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import { Block, PageHero } from "@/components/sections";
-import { Button, SectionHead } from "@/components/ui-legacy";
-import { CtaBand, EvidenceCard, WorkGroup } from "@/components/work-bits";
+import Link from "next/link";
+import { Arrow, SectionHead } from "@/components/flow/bits";
+import { PageHero } from "@/components/flow/page-hero";
+import { labKind } from "@/components/work/lab-kind";
+import { WorkIndex } from "@/components/work/work-index";
+import { routes } from "@/lib/routes";
 import { work, workKinds, type WorkKind } from "@/lib/work";
-import { Sparkle } from "@/components/icons";
 
 export const metadata: Metadata = {
-  title: "Selected work",
+  title: "Work",
   description:
-    "The founders’ own work, independent experiments and working AI demonstrations — each labelled with what it is, who made it, and what it does and doesn’t prove.",
+    "From the lab: the founders’ earlier work, independent experiments and working AI prototypes, each labelled with what it is and what it does and doesn’t show.",
 };
 
-const of = (kind: WorkKind) => work.filter((w) => w.kind === kind);
+/* Two kinds of proof, never mixed up. Kinds and their labels come from lib/work. */
+const evidence: { n: string; title: string; body: string; kinds: WorkKind[] }[] = [
+  {
+    n: "01",
+    title: "Craft evidence",
+    body: "Websites, interfaces and technical projects, with each founder’s contribution and the reasoning behind it. Judge the thinking and the finish.",
+    kinds: ["portfolio", "experiment"],
+  },
+  {
+    n: "02",
+    title: "Capability evidence",
+    body: "Working demonstrations built with permitted sample data. They show what we can build, not results a client has achieved.",
+    kinds: ["demonstration"],
+  },
+];
 
 export default function WorkPage() {
+  const items = work.map((w) => ({ slug: w.slug, title: w.title, label: w.label, practice: w.practice, year: w.year, media: labKind(w) }));
+
   return (
     <>
       <PageHero
-        chip="Selected work"
-        title="Proof, labelled for what it is."
-        lead="ALRO is a new studio, and we won’t borrow proof. Every piece says what it is, who made it, and what it does — and doesn’t — demonstrate."
-        image="/img/light-lines.jpg"
-        actions={
+        size="md"
+        eyebrow="Work"
+        top="Less talk."
+        bottom={
           <>
-            <Button href="#portfolio" arrow>
-              Browse the work
-            </Button>
-            <Button href="#evidence" variant="ghost">
-              How to read it
-            </Button>
+            <em>More things</em> we’ve actually made.
           </>
+        }
+        lead="We’re a new studio, so we won’t borrow proof. Everything here carries a label saying what it is (a founder’s earlier work, an independent experiment or a working prototype) and what it does and doesn’t show."
+        actions={
+          <Link href="#labels" className="line-link">
+            How we label things
+            <Arrow />
+          </Link>
         }
       />
 
-      {/* ───── Two kinds of proof ───── */}
-      <section id="evidence" className="relative scroll-mt-20 overflow-hidden">
-        <div className="absolute inset-0 fade-y" aria-hidden="true">
-          <Image src="/img/amber-curves.jpg" alt="" fill sizes="100vw" className="object-cover opacity-50" />
-          <div className="absolute inset-0 bg-bg/40" />
-        </div>
-        <div className="wrap section relative">
-          <SectionHead
-            chip="How to read this page"
-            title="Two kinds of proof. Never mixed up."
-            aside={<p className="body max-w-[36ch]">No logo wall. Just the founders’ own work and what we’re building now, each with an honest label.</p>}
-          />
-          <div className="mt-14 grid gap-4 md:mt-16 md:grid-cols-2 md:gap-5">
-            <EvidenceCard
-              i={0}
-              title="Craft evidence"
-              image="/img/sketch.jpg"
-              body="Websites, interfaces and technical projects, with each founder’s contribution and the reasoning behind it."
-              groups={[
-                { href: "#portfolio", label: workKinds.portfolio.title },
-                { href: "#experiment", label: workKinds.experiment.title },
-              ]}
-            />
-            <EvidenceCard
-              i={1}
-              hot
-              title="Capability evidence"
-              image="/img/laptop-night.jpg"
-              body="Working demonstrations and walkthroughs. They show what we can build, not results a client has achieved."
-              groups={[{ href: "#demonstration", label: workKinds.demonstration.title }]}
-            />
-          </div>
-
-          <div className="glass-dark mt-4 flex flex-col gap-4 rounded-[24px] p-6 md:mt-5 md:flex-row md:items-center md:justify-between md:gap-8 md:p-7" data-reveal>
-            <p className="max-w-[38ch] text-[0.95rem] text-fg-2">Every piece carries its label on the card and at the top of its page. These are the ones in use today:</p>
-            <ul className="flex flex-wrap gap-2 md:justify-end">
-              {work.map((w) => (
-                <li key={w.slug} className="tag max-w-full">
-                  <Sparkle className="h-2.5 w-2.5 flex-none" />
-                  <span className="min-w-0 truncate">{w.label}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+      {/* ═════════ index ═════════ */}
+      <section className="section !pt-[clamp(1rem,3vw,2rem)]">
+        <div className="wrap">
+          <WorkIndex items={items} />
         </div>
       </section>
 
-      {/* ───── Groups ───── */}
-      <Block>
-        <WorkGroup kind="portfolio" items={of("portfolio")} />
-        <div className="hairline my-16 md:my-24" />
-        <div className="grid gap-16 md:grid-cols-2 md:gap-5">
-          <WorkGroup kind="experiment" items={of("experiment")} layout="stack" />
-          <WorkGroup kind="demonstration" items={of("demonstration")} layout="stack" />
+      {/* ═════════ how we label things ═════════ */}
+      <section id="labels" className="section scroll-mt-24 bg-mist/55">
+        <div className="wrap grid gap-[clamp(2.5rem,5vw,4rem)]">
+          <SectionHead
+            eyebrow="How we label things"
+            title={
+              <>
+                Two kinds of proof. <em>Never</em> mixed up.
+              </>
+            }
+            lead="No logo wall and no borrowed results. Every piece says who made it, in what context, and which kind of evidence it is."
+          />
+          <div className="grid gap-6 lg:grid-cols-2">
+            {evidence.map((e) => (
+              <article key={e.n} className="panel glass flex flex-col gap-8" data-reveal="fade">
+                <span className="ghost-num" data-drift aria-hidden="true">
+                  {e.n}
+                </span>
+                <div className="relative grid gap-4">
+                  <span className="tiny">Evidence — {e.n}</span>
+                  <h3 className="h3">{e.title}</h3>
+                  <p className="body max-w-[32rem]">{e.body}</p>
+                </div>
+                <dl className="relative m-0 grid gap-6 border-t border-ink/12 pt-6">
+                  {e.kinds.map((k) => (
+                    <div key={k} className="grid gap-3">
+                      <dt className="font-serif text-[1.35rem] leading-snug">{workKinds[k].title}</dt>
+                      <dd className="m-0 grid gap-3">
+                        <p className="body">{workKinds[k].body}</p>
+                        <span className="sr-only">Labels in use:</span>
+                        <div className="chips">
+                          {[...new Set(work.filter((w) => w.kind === k).map((w) => w.label))].map((label) => (
+                            <span key={label} className="chip max-w-full truncate">
+                              {label}
+                            </span>
+                          ))}
+                        </div>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </article>
+            ))}
+          </div>
+          <div className="flex flex-col gap-4 md:flex-row md:items-baseline md:justify-between" data-reveal="fade">
+            <p className="tiny max-w-[36rem]">Every label appears in the index above and again at the top of each piece.</p>
+            <Link href={routes.contact} className="line-link w-fit">
+              Ask us about any piece
+              <Arrow />
+            </Link>
+          </div>
         </div>
-      </Block>
-
-      <CtaBand
-        chip="Ask about any piece"
-        title="Judge the thinking, not the logo wall."
-        lead="Ask us about anything here: what we did, what we’d change, and what it doesn’t prove. Then tell us what you’re trying to build."
-        image="/img/candle-desk.jpg"
-        actions={
-          <>
-            <Button href="/contact" arrow>
-              Start a conversation
-            </Button>
-            <Button href="/studio" variant="ghost">
-              Meet the founders
-            </Button>
-          </>
-        }
-      />
+      </section>
     </>
   );
 }

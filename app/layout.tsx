@@ -14,10 +14,15 @@ export const metadata: Metadata = {
     "Independent creative technology studio. We build bespoke websites and AI-powered business systems. One helps your business show up better. The other helps your team work better.",
 };
 
-export const viewport: Viewport = { themeColor: "#fbfbf9" };
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbfbf9" },
+    { media: "(prefers-color-scheme: dark)", color: "#070304" },
+  ],
+};
 
-// Runs before first paint: opt into the motion layer, skip the preloader on repeat visits.
-const prePaint = `try{var d=document.documentElement;d.classList.add('flow');if(sessionStorage.getItem('alro-pl')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('pl-skip')}catch(e){}`;
+// Runs before first paint: theme (saved choice, else OS), motion layer, skip the preloader on repeat visits.
+const prePaint = `try{var d=document.documentElement;d.classList.add('flow');var t=localStorage.getItem('alro-theme');d.dataset.theme=t==='dark'||t==='light'?t:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');if(sessionStorage.getItem('alro-pl')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('pl-skip')}catch(e){}`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

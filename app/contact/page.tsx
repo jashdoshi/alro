@@ -1,41 +1,76 @@
 import type { Metadata } from "next";
-import { Faq } from "@/components/faq";
-import { Mail } from "@/components/icons";
-import { Block, ContactSection } from "@/components/sections";
-import { Chip } from "@/components/ui-legacy";
-import { faqGeneral, site } from "@/lib/content";
+import { ContactFormV3, type Topic } from "@/components/contact/contact-form-v3";
+import { PageHero } from "@/components/flow/page-hero";
+import { email } from "@/lib/routes";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Tell us what you’re looking to build. Every message is read by the founders, and every reply is personal.",
+  description: "Tell us what you’re working on. Websites, Company Brain, or not sure yet: every message is read by the founders, and every reply is personal.",
 };
 
-export default function ContactPage() {
+type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
+
+const topics: Topic[] = ["websites", "company-brain", "not-sure"];
+
+const next = [
+  { t: "We read your note.", c: "The founders read every message themselves. No sales team, no ticket number." },
+  { t: "A short conversation.", c: "If it looks like a fit, we’ll suggest a call to understand what you’re trying to achieve, the tools you use and the constraints you’re working with." },
+  { t: "A written proposal.", c: "What we’d build, why, what it costs and what success should look like, in writing." },
+];
+
+export default async function ContactPage({ searchParams }: Props) {
+  const raw = (await searchParams).topic;
+  const value = Array.isArray(raw) ? raw[0] : raw;
+  const topic = topics.find((t) => t === value);
+
   return (
     <>
-      {/* Clears the fixed 64px header so the hero chip never sits under it. */}
-      <div className="h-16 md:h-10" aria-hidden="true" />
-      <ContactSection chip="Start a conversation" title="Have something worth building?" />
+      <PageHero
+        eyebrow="Have something in mind?"
+        top="Something you want"
+        bottom={
+          <>
+            to make <em>better?</em>
+          </>
+        }
+        lead="Tell us what you’re working on."
+      />
 
-      <Block id="questions" className="border-t border-line">
-        <div className="grid gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
-          <div className="flex flex-col items-start gap-5 md:sticky md:top-28 md:self-start" data-reveal>
-            <Chip>Questions</Chip>
-            <h2 className="h2 max-w-[10ch]">Before you write.</h2>
-            <p className="body max-w-[36ch]">Straight answers to what people usually ask first. Anything else, just ask.</p>
-            <a
-              href={`mailto:${site.email}`}
-              className="mt-2 inline-flex items-center gap-2.5 text-[1.05rem] font-medium tracking-[-0.02em] text-fg transition-colors hover:text-accent"
-            >
-              <Mail className="h-5 w-5 text-accent" />
-              {site.email}
-            </a>
+      <section className="section !pt-[clamp(1rem,3vw,2rem)]">
+        <div className="wrap grid gap-[clamp(3.5rem,7vw,6rem)] lg:grid-cols-[minmax(0,1.5fr)_minmax(0,0.8fr)]">
+          <div className="min-w-0" data-reveal="fade">
+            {/* key: the footer's topic links can change ?topic= without leaving the page */}
+            <ContactFormV3 key={topic ?? "none"} initialTopic={topic} />
           </div>
-          <div data-reveal style={{ ["--i" as string]: 1 }}>
-            <Faq items={faqGeneral} />
-          </div>
+
+          <aside className="grid content-start gap-10 lg:sticky lg:top-32 lg:self-start" aria-labelledby="next-heading">
+            <div className="grid gap-4">
+              <span className="eyebrow">What happens next</span>
+              <h2 id="next-heading" className="font-serif text-[clamp(1.75rem,3vw,2.4rem)] leading-tight">
+                Simple, <em>on purpose.</em>
+              </h2>
+            </div>
+            <ol className="m-0 grid list-none gap-0 border-t border-ink/12 p-0" data-reveal-group>
+              {next.map((s, k) => (
+                <li key={s.t} className="grid grid-cols-[2.75rem_1fr] gap-4 border-b border-ink/12 py-6">
+                  <span className="grid h-11 w-11 place-items-center rounded-full border border-ink/18 text-[11px] font-bold tracking-[0.15em] text-ink/55">{String(k + 1).padStart(2, "0")}</span>
+                  <div className="grid gap-1.5 pt-1.5">
+                    <h3 className="text-[1.35rem] leading-snug">{s.t}</h3>
+                    <p className="body">{s.c}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p className="font-serif text-[1.25rem] italic leading-snug">Nothing starts until you’ve agreed.</p>
+            <div className="grid gap-3">
+              <span className="tiny">Prefer email?</span>
+              <a href={`mailto:${email}`} className="line-link w-fit !normal-case !tracking-normal text-[15px]">
+                {email}
+              </a>
+            </div>
+          </aside>
         </div>
-      </Block>
+      </section>
     </>
   );
 }

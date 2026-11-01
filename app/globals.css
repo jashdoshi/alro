@@ -15,10 +15,36 @@
   --grey-rgb: 107 107 107;
   --mist-rgb: 231 229 224;
   --paper-rgb: 251 251 249;
+  --shadow-rgb: 17 17 17;
+  --glass-rgb: 255 255 255;
+  --on-media: #fbfbf9;
+  --scene-a: #f1efea;
+  --scene-b: #dedbd4;
+  --scene-c: #c4c0b8;
 
   --flow-ease: cubic-bezier(0.76, 0, 0.24, 1);
   --quint: cubic-bezier(0.23, 1, 0.32, 1);
   color-scheme: light;
+}
+
+/* Dark theme: near-black page, beige (#b5ac9a) wherever light used white. */
+[data-theme="dark"] {
+  --ink: #b5ac9a;
+  --grey: #7f786c;
+  --mist: #1f1b18;
+  --paper: #070304;
+  --white: #120f0d;
+  --ink-rgb: 181 172 154;
+  --grey-rgb: 127 120 108;
+  --mist-rgb: 31 27 24;
+  --paper-rgb: 7 3 4;
+  --shadow-rgb: 0 0 0;
+  --glass-rgb: 28 24 21;
+  --on-media: #b5ac9a;
+  --scene-a: #1b1815;
+  --scene-b: #29241f;
+  --scene-c: #3a342d;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -26,6 +52,7 @@
   --color-grey: var(--grey);
   --color-mist: var(--mist);
   --color-paper: var(--paper);
+  --color-white: var(--white);
   --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
@@ -169,13 +196,13 @@
 
   /* ───────── glass (nav, panels) ───────── */
   .glass {
-    background: rgb(255 255 255 / 0.55);
+    background: rgb(var(--glass-rgb) / 0.55);
     -webkit-backdrop-filter: blur(12px) saturate(180%);
     backdrop-filter: blur(12px) saturate(180%);
-    border: 1px solid rgb(255 255 255 / 0.6);
+    border: 1px solid rgb(var(--glass-rgb) / 0.6);
     box-shadow:
-      0 8px 32px 0 rgb(var(--ink-rgb) / 0.05),
-      inset 0 1px 0 rgb(255 255 255 / 0.7);
+      0 8px 32px 0 rgb(var(--shadow-rgb) / 0.05),
+      inset 0 1px 0 rgb(var(--glass-rgb) / 0.7);
   }
 
   /* ───────── buttons ───────── */
@@ -216,7 +243,7 @@
   .liquid:hover {
     background: rgb(var(--ink-rgb) / 1);
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgb(var(--ink-rgb) / 0.15);
+    box-shadow: 0 10px 20px rgb(var(--shadow-rgb) / 0.15);
   }
   .liquid::after {
     content: "";
@@ -380,7 +407,7 @@
   }
   .panel:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 60px -15px rgb(var(--ink-rgb) / 0.12);
+    box-shadow: 0 20px 60px -15px rgb(var(--shadow-rgb) / 0.12);
   }
   .ghost-num {
     position: absolute;
@@ -414,7 +441,7 @@
     border-radius: 1rem;
     background: var(--white);
     border: 1px solid rgb(var(--ink-rgb) / 0.1);
-    box-shadow: 0 30px 60px -20px rgb(var(--ink-rgb) / 0.22);
+    box-shadow: 0 30px 60px -20px rgb(var(--shadow-rgb) / 0.22);
     overflow: hidden;
   }
   .window-bar {
@@ -718,7 +745,7 @@
     filter: drop-shadow(0 1px 3px rgb(var(--ink-rgb) / 0.45));
   }
   .c-flower .c-orbit text {
-    fill: var(--paper);
+    fill: var(--on-media);
     font-family: var(--font-sans);
   }
   .c-flower .core {
@@ -911,4 +938,37 @@ html.flow.pl-skip [data-hero] {
   *::after {
     transition-duration: 0.001ms !important;
   }
+}
+
+/* ───────── dark-theme refinements ───────── */
+@layer components {
+  [data-theme="dark"] .glass {
+    border-color: rgb(var(--ink-rgb) / 0.12);
+    box-shadow:
+      0 8px 32px 0 rgb(0 0 0 / 0.35),
+      inset 0 1px 0 rgb(var(--ink-rgb) / 0.08);
+  }
+  [data-theme="dark"] .grain {
+    mix-blend-mode: screen;
+    opacity: 0.035;
+  }
+  [data-theme="dark"] .window {
+    border-color: rgb(var(--ink-rgb) / 0.12);
+  }
+  [data-theme="dark"] .liquid::after {
+    background: radial-gradient(circle, rgb(255 255 255 / 0.25) 0%, transparent 70%);
+  }
+}
+
+/* smooth hand-off when the theme is switched (class added briefly by the toggle) */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition:
+    background-color 0.6s var(--flow-ease),
+    color 0.6s var(--flow-ease),
+    border-color 0.6s var(--flow-ease),
+    fill 0.6s var(--flow-ease),
+    stroke 0.6s var(--flow-ease) !important;
 }

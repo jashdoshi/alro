@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { email, routes } from "@/lib/routes";
 import { Arrow, Swap } from "./flow/bits";
+import { Logo } from "./flow/logo";
+import { ThemeToggle } from "./flow/theme-toggle";
 
 const links = [
   { href: routes.work, label: "work" },
@@ -28,8 +30,8 @@ export function SiteHeader() {
     <>
       <header id="siteHeader" className="fixed inset-x-0 top-[calc(16px+env(safe-area-inset-top,0px))] z-50 px-4">
         <nav className="glass mx-auto flex max-w-[46rem] items-center justify-between gap-4 rounded-full py-2.5 pl-6 pr-3" aria-label="Primary">
-          <Link href={routes.home} className="text-[1.15rem] font-bold tracking-[-0.03em] no-underline" aria-label="alro. home">
-            alro.
+          <Link href={routes.home} className="block text-ink no-underline" aria-label="alro. home">
+            <Logo className="h-[22px] w-auto" />
           </Link>
           <div className="relative hidden items-center gap-7 text-[13px] font-medium uppercase tracking-[0.1em] text-ink/80 md:flex" data-nav-pill>
             {links.map((l) => (
@@ -38,13 +40,16 @@ export function SiteHeader() {
               </Link>
             ))}
           </div>
-          <Link href="/#contact" className="btn liquid sm hidden md:inline-flex" data-magnetic="0.25">
-            <Swap>let’s talk</Swap>
-            <Arrow />
-          </Link>
-          <button type="button" className="ghost-btn md:hidden" aria-expanded={open} aria-controls="mobileMenu" onClick={() => setOpen(true)}>
-            menu
-          </button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Link href="/#contact" className="btn liquid sm hidden md:inline-flex" data-magnetic="0.25">
+              <Swap>let’s talk</Swap>
+              <Arrow />
+            </Link>
+            <button type="button" className="ghost-btn md:hidden" aria-expanded={open} aria-controls="mobileMenu" onClick={() => setOpen(true)}>
+              menu
+            </button>
+          </div>
         </nav>
       </header>
 
@@ -56,7 +61,7 @@ export function SiteHeader() {
         data-cursor-invert
       >
         <div className="flex items-center justify-between">
-          <span className="text-[1.15rem] font-bold tracking-[-0.03em]">alro.</span>
+          <Logo className="h-[22px] w-auto text-mist" />
           <button type="button" className="ghost-btn" onClick={() => setOpen(false)}>
             close
           </button>

@@ -36,10 +36,10 @@ const sections: { id: string; title: string; body: ReactNode }[] = [
         <p>When you use the contact form, we receive only what you choose to give us:</p>
         <ul>
           <li>your name and work email address;</li>
-          <li>your company or current website, if you add it;</li>
+          <li>your current website, if you add it;</li>
           <li>
             what your enquiry is about, your description of it, and any optional details you include, such as a launch window, tools in use, data
-            sensitivity, deployment needs or a budget range.
+            sensitivity or deployment needs.
           </li>
         </ul>
       </>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { email, routes } from "@/lib/routes";
+import { Logo } from "./flow/logo";
 import { FooterCta } from "./footer-cta";
 
 /**
@@ -23,8 +24,8 @@ export function SiteFooter() {
       </div>
 
       <div className="wrap flex flex-col gap-6 py-10 text-[12px] uppercase tracking-[0.15em] text-mist/55 md:flex-row md:items-center md:justify-between">
-        <p className="flex items-baseline gap-4">
-          <span className="text-[1.15rem] font-bold normal-case tracking-[-0.03em] text-paper">alro.</span>
+        <p className="flex items-center gap-4">
+          <Logo className="h-[20px] w-auto self-center text-paper" />
           <span>design. engineering. intelligence.</span>
         </p>
         <div className="flex flex-wrap gap-x-8 gap-y-2">

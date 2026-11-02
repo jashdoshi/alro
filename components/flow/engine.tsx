@@ -277,15 +277,21 @@ export function FlowEngine() {
       const hero = (part: string) => gsap.utils.toArray<HTMLElement>(`[data-hero="${part}"]`);
       const intro = () => {
         const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-        tl.set("[data-hero]", { opacity: 1 })
-          .from(hero("kicker"), { opacity: 0, y: 20, duration: 1 }, 0.15)
-          .fromTo(hero("top"), { xPercent: -110 }, { xPercent: 0, duration: 1.5 }, 0.1)
-          .fromTo(hero("bottom"), { xPercent: 110 }, { xPercent: 0, duration: 1.5 }, 0.1)
-          .from(hero("text"), { opacity: 0, y: 24, duration: 1 }, 0.65)
-          .from(hero("cta"), { opacity: 0, y: 24, duration: 1, stagger: 0.08 }, 0.75)
-          .from(hero("aside"), { opacity: 0, y: 44, duration: 1.2, stagger: 0.12 }, 0.7)
-          .from(hero("hint"), { opacity: 0, duration: 0.8 }, 1.2)
-          .from("#siteHeader nav", { y: -90, opacity: 0, duration: 1 }, 0);
+        tl.set("[data-hero]", { opacity: 1 }).from("#siteHeader nav", { y: -90, opacity: 0, duration: 1 }, 0);
+        // each part is optional per page; skip the ones a page doesn't have
+        const part = (name: string, vars: gsap.TweenVars, at: number, to?: gsap.TweenVars) => {
+          const els = hero(name);
+          if (!els.length) return;
+          if (to) tl.fromTo(els, vars, to, at);
+          else tl.from(els, vars, at);
+        };
+        part("kicker", { opacity: 0, y: 20, duration: 1 }, 0.15);
+        part("top", { xPercent: -110 }, 0.1, { xPercent: 0, duration: 1.5 });
+        part("bottom", { xPercent: 110 }, 0.1, { xPercent: 0, duration: 1.5 });
+        part("text", { opacity: 0, y: 24, duration: 1 }, 0.65);
+        part("cta", { opacity: 0, y: 24, duration: 1, stagger: 0.08 }, 0.75);
+        part("aside", { opacity: 0, y: 44, duration: 1.2, stagger: 0.12 }, 0.7);
+        part("hint", { opacity: 0, duration: 0.8 }, 1.2);
         const ul = document.querySelector<SVGPathElement>('[data-hero="underline"] path');
         if (ul) {
           const len = ul.getTotalLength();

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Arrow, SectionHead, Swap } from "@/components/flow/bits";
 import { BrainDemo } from "@/components/home/brain-demo";
+import { BrainFlow } from "@/components/home/brain-flow";
 import { Faq } from "@/components/home/faq";
 import { HeroWindows } from "@/components/home/hero-windows";
 import { LabMedia } from "@/components/home/lab-media";
@@ -354,34 +355,6 @@ function WebsiteCraft() {
             </div>
           </div>
           <div className="rounded-md" style={{ background: "radial-gradient(120% 90% at 30% 15%, #d9d6cf 0%, #a9a59c 45%, #5f5d58 100%)" }} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/** Company Brain: a credible sourced-answer workflow. */
-function BrainFlow() {
-  return (
-    <div className="relative grid aspect-[16/10] place-items-center bg-[linear-gradient(135deg,#1a1a1a,#3a3a38)] p-[6%]" data-clip-img>
-      <div className="grid w-full max-w-[86%] grid-cols-[auto_1fr] items-center gap-4">
-        <div className="grid gap-2">
-          {["Drive", "CRM", "Email", "Notes"].map((s) => (
-            <span key={s} className="rounded-full border border-mist/25 px-3 py-1 text-center text-[9px] uppercase tracking-[0.15em] text-mist/75">
-              {s}
-            </span>
-          ))}
-        </div>
-        <div className="rounded-xl bg-white p-3.5 shadow-2xl">
-          <p className="ml-auto w-fit rounded-lg bg-ink/5 px-2.5 py-1.5 text-[10px]">Where did we land on the supplier terms?</p>
-          <p className="mt-2.5 font-serif text-[clamp(0.85rem,1.6vw,1.05rem)] leading-snug">Net-30 agreed, with a review after the first quarter.</p>
-          <div className="mt-2 flex gap-1.5">
-            {["Email · 12 Mar", "Contract v2"].map((s) => (
-              <span key={s} className="whitespace-nowrap rounded-full border border-ink/15 px-2 py-0.5 text-[8px] uppercase tracking-[0.12em] text-ink/55">
-                {s}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </div>

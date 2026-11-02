@@ -14,7 +14,6 @@ const topics: { id: Topic; title: string; body: string }[] = [
   { id: "not-sure", title: "I’m not sure yet", body: "You know what isn’t working, just not yet what the answer is. That’s a fine place to start." },
 ];
 
-const budgets = ["Prefer not to say", "Under 10k", "10k – 25k", "25k – 50k", "50k +", "Not sure yet"];
 
 /* Shared field look: soft grey pill, 16px text (no iOS zoom), 48px tall. */
 const fieldCls =
@@ -148,8 +147,6 @@ export function ContactFormV3({ initialTopic }: { initialTopic?: Topic }) {
         <div className="grid gap-6 sm:grid-cols-2">
           <Field label="Name" name="name" autoComplete="name" required invalid={showError && invalid.has("name")} />
           <Field label="Work email" name="email" type="email" autoComplete="email" inputMode="email" required invalid={showError && invalid.has("email")} />
-          <Field label="Company" name="company" optional autoComplete="organization" />
-          <Select label="Budget range" name="budget" optional options={budgets} />
         </div>
       </div>
 

@@ -42,12 +42,21 @@ export function SiteHeader() {
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Link href="/#contact" className="btn liquid sm hidden md:inline-flex" data-magnetic="0.25">
+            <Link href={routes.contact} className="btn liquid sm hidden md:inline-flex" data-magnetic="0.25">
               <Swap>let’s talk</Swap>
               <Arrow />
             </Link>
-            <button type="button" className="ghost-btn md:hidden" aria-expanded={open} aria-controls="mobileMenu" onClick={() => setOpen(true)}>
-              menu
+            <button
+              type="button"
+              className="grid h-10 w-10 flex-none place-items-center rounded-full border border-ink/15 text-ink transition-colors duration-300 hover:border-ink/40 md:hidden"
+              aria-label="Open menu"
+              aria-expanded={open}
+              aria-controls="mobileMenu"
+              onClick={() => setOpen(true)}
+            >
+              <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" aria-hidden="true">
+                <path d="M5 9h14M5 15h14" />
+              </svg>
             </button>
           </div>
         </nav>
@@ -62,12 +71,19 @@ export function SiteHeader() {
       >
         <div className="flex items-center justify-between">
           <Logo className="h-[22px] w-auto text-mist" />
-          <button type="button" className="ghost-btn" onClick={() => setOpen(false)}>
-            close
+          <button
+            type="button"
+            className="grid h-10 w-10 flex-none place-items-center rounded-full border border-mist/30 text-mist transition-colors duration-300 hover:border-mist/60"
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
+          >
+            <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" aria-hidden="true">
+              <path d="M7 7l10 10M17 7 7 17" />
+            </svg>
           </button>
         </div>
         <nav className="mt-14 grid gap-2" aria-label="Mobile">
-          {[{ href: routes.home, label: "home" }, ...links, { href: "/#contact", label: "let’s talk" }].map((l) => (
+          {[{ href: routes.home, label: "home" }, ...links, { href: routes.contact, label: "let’s talk" }].map((l) => (
             <Link key={l.label} href={l.href} onClick={() => setOpen(false)} className="font-serif text-[2.6rem] leading-tight text-mist no-underline">
               {l.label}
             </Link>

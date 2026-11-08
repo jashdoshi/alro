@@ -15,6 +15,7 @@ export type IndexItem = {
   practice: "Websites" | "Intelligent systems";
   year: string;
   media: LabKind;
+  externalHref?: string;
 };
 
 type Filter = "all" | IndexItem["practice"];
@@ -151,37 +152,50 @@ export function WorkIndex({ items }: { items: IndexItem[] }) {
           <p className="body border-t border-ink/12 py-10">Nothing here yet. We’d rather leave it empty than fill it with filler.</p>
         ) : (
           <ul className="m-0 list-none border-t border-ink/12 p-0">
-            {shown.map((w, k) => (
-              <li key={w.slug} className="border-b border-ink/12">
-                <Link href={`/work/${w.slug}`} data-row={w.slug} data-cursor-invert className="group relative block overflow-hidden text-ink no-underline">
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-0 origin-bottom scale-y-0 bg-ink transition-transform duration-[600ms] ease-[var(--flow-ease)] group-hover:scale-y-100"
-                  />
-                  <div className="relative grid gap-5 py-7 md:grid-cols-[4.5rem_minmax(0,1fr)_auto] md:items-center md:gap-6 md:px-4 md:py-9">
-                    {/* small-screen / touch stand-in for the pointer preview */}
-                    <div className="pcard hidden max-w-[30rem] max-md:block md:col-span-3 [@media(hover:none)]:block" aria-hidden="true">
-                      <div className="media">
-                        <LabMedia kind={w.media} />
+            {shown.map((w, k) => {
+              const isExternal = Boolean(w.externalHref);
+              const RowLink = isExternal ? "a" : Link;
+
+              return (
+                <li key={w.slug} className="border-b border-ink/12">
+                  <RowLink
+                    href={w.externalHref ?? `/work/${w.slug}`}
+                    data-row={w.slug}
+                    data-cursor-invert
+                    className="group relative block overflow-hidden text-ink no-underline"
+                    {...(isExternal
+                      ? { target: "_blank", rel: "noopener noreferrer", "aria-label": `${w.title} — opens external portfolio in a new tab` }
+                      : {})}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="absolute inset-0 origin-bottom scale-y-0 bg-ink transition-transform duration-[600ms] ease-[var(--flow-ease)] group-hover:scale-y-100"
+                    />
+                    <div className="relative grid gap-5 py-7 md:grid-cols-[4.5rem_minmax(0,1fr)_auto] md:items-center md:gap-6 md:px-4 md:py-9">
+                      {/* small-screen / touch stand-in for the pointer preview */}
+                      <div className="pcard hidden max-w-[30rem] max-md:block md:col-span-3 [@media(hover:none)]:block" aria-hidden="true">
+                        <div className="media">
+                          <LabMedia kind={w.media} />
+                        </div>
+                      </div>
+                      <span className="tiny tabular-nums transition-colors duration-500 group-hover:text-mist/60">{String(k + 1).padStart(2, "0")}</span>
+                      <div className="grid min-w-0 gap-2 transition-transform duration-[600ms] ease-[var(--flow-ease)] group-hover:translate-x-[14px]">
+                        <h3 className="text-[clamp(1.5rem,3.5vw,2.5rem)] leading-[1.15] transition-colors duration-500 group-hover:text-paper">{w.title}</h3>
+                        <span className="tiny transition-colors duration-500 group-hover:text-mist/70">{w.label}</span>
+                      </div>
+                      <div className="flex items-center justify-between gap-6 md:justify-end">
+                        <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-ink/55 transition-colors duration-500 group-hover:text-mist/70">
+                          {w.practice} · {w.year}
+                        </span>
+                        <span className="grid h-11 w-11 flex-none place-items-center rounded-full border border-ink/15 transition-colors duration-500 group-hover:border-mist/30 group-hover:text-paper">
+                          <Arrow className="h-4 w-4" />
+                        </span>
                       </div>
                     </div>
-                    <span className="tiny tabular-nums transition-colors duration-500 group-hover:text-mist/60">{String(k + 1).padStart(2, "0")}</span>
-                    <div className="grid min-w-0 gap-2 transition-transform duration-[600ms] ease-[var(--flow-ease)] group-hover:translate-x-[14px]">
-                      <h3 className="text-[clamp(1.5rem,3.5vw,2.5rem)] leading-[1.15] transition-colors duration-500 group-hover:text-paper">{w.title}</h3>
-                      <span className="tiny transition-colors duration-500 group-hover:text-mist/70">{w.label}</span>
-                    </div>
-                    <div className="flex items-center justify-between gap-6 md:justify-end">
-                      <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-ink/55 transition-colors duration-500 group-hover:text-mist/70">
-                        {w.practice} · {w.year}
-                      </span>
-                      <span className="grid h-11 w-11 flex-none place-items-center rounded-full border border-ink/15 transition-colors duration-500 group-hover:border-mist/30 group-hover:text-paper">
-                        <Arrow className="h-4 w-4" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </li>
-            ))}
+                  </RowLink>
+                </li>
+              );
+            })}
           </ul>
         )}
       </div>

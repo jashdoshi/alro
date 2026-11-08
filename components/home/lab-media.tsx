@@ -1,10 +1,18 @@
+import Image from "next/image";
+
 /**
  * Realistic interface illustrations for the lab pieces (no stock imagery).
  * Each has a still and a "moving" state that crossfades on card hover.
  */
-type Kind = "assistant" | "story" | "design" | "systems";
+type SceneKind = "assistant" | "story" | "design" | "systems";
+type PortfolioKind = "jash-portfolio" | "sumedh-portfolio";
+type Kind = SceneKind | PortfolioKind;
 
 export function LabMedia({ kind }: { kind: Kind }) {
+  if (kind === "jash-portfolio" || kind === "sumedh-portfolio") {
+    return <PortfolioPreview kind={kind} />;
+  }
+
   return (
     <>
       <div className="still" data-clip-img>
@@ -17,16 +25,75 @@ export function LabMedia({ kind }: { kind: Kind }) {
   );
 }
 
-const bg = {
-  assistant: "linear-gradient(135deg,#1c1c1c 0%,#3a3a38 100%)",
-  story: "linear-gradient(135deg,var(--scene-a) 0%,var(--scene-c) 100%)",
-  design: "linear-gradient(135deg,var(--scene-a) 0%,var(--scene-b) 100%)",
-  systems: "linear-gradient(135deg,#2a2a28 0%,#111 100%)",
-};
+/**
+ * Shows a founder's real portfolio inside the project frame.
+ *
+ * A short sequence of real-site captures moves behind the clipped card. This
+ * avoids cross-site frame restrictions and keeps the card lightweight.
+ */
+const portfolioPreviews = {
+  "jash-portfolio": {
+    label: "jashdoshi.in",
+    frames: [
+      { src: "/images/jashdoshi-hero.jpg", alt: "Jash Doshi portfolio hero" },
+      { src: "/images/jashdoshi-about.jpg", alt: "About section from Jash Doshi's portfolio" },
+      { src: "/images/jashdoshi-experience.jpg", alt: "Experience section from Jash Doshi's portfolio" },
+    ],
+  },
+  "sumedh-portfolio": {
+    label: "sumedhs-portfolio.vercel.app",
+    frames: [
+      { src: "/images/sumedh-hero.jpg", alt: "Sumedh Kudav portfolio hero painted along Marine Drive" },
+      { src: "/images/sumedh-work.jpg", alt: "Featured live-call assistant from Sumedh Kudav's portfolio" },
+      { src: "/images/sumedh-desktop.jpg", alt: "Custom Linux desktop section from Sumedh Kudav's portfolio" },
+    ],
+  },
+} as const;
 
-function Scene({ kind, alt }: { kind: Kind; alt: boolean }) {
+function PortfolioPreview({ kind }: { kind: PortfolioKind }) {
+  const preview = portfolioPreviews[kind];
+
   return (
-    <div className="absolute inset-0 grid place-items-center p-[7%]" style={{ background: bg[kind] }}>
+    <div className="portfolio-preview" aria-hidden="true">
+      <div className="portfolio-preview__track">
+        {preview.frames.map((frame) => (
+          <Image key={frame.src} src={frame.src} alt={frame.alt} width={1280} height={720} sizes="(min-width: 768px) 50vw, 100vw" />
+        ))}
+      </div>
+      <span className="portfolio-preview__label">{preview.label}</span>
+    </div>
+  );
+}
+
+const bg = {
+  story: "#050403",
+  design: "#050403",
+  systems: "linear-gradient(135deg,#2a2a28 0%,#111 100%)",
+} satisfies Record<Exclude<SceneKind, "assistant">, string>;
+
+const generatedMedia = {
+  story: "/images/alro-story.png",
+  design: "/images/alro-design.png",
+} as const;
+
+function Scene({ kind, alt }: { kind: SceneKind; alt: boolean }) {
+  const background = kind === "assistant" ? undefined : bg[kind];
+
+  return (
+    <div
+      className={`absolute inset-0 grid place-items-center p-[7%] ${kind === "assistant" ? "frost-field frost-field--assistant" : ""}`}
+      style={background ? { background } : undefined}
+    >
+      {(kind === "story" || kind === "design") && (
+        <Image
+          src={generatedMedia[kind]}
+          alt=""
+          fill
+          sizes="(min-width: 768px) 50vw, 100vw"
+          className="object-cover transition-transform duration-700 ease-[var(--quint)]"
+          style={{ transform: alt ? "scale(1.045) translate3d(0, -1%, 0)" : "scale(1)" }}
+        />
+      )}
       {kind === "assistant" && (
         <div className="grid w-full max-w-[78%] gap-2.5 rounded-xl bg-white p-4 shadow-2xl">
           <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-[0.18em] text-ink/60">
@@ -54,31 +121,6 @@ function Scene({ kind, alt }: { kind: Kind; alt: boolean }) {
               </div>
             </>
           )}
-        </div>
-      )}
-      {kind === "story" && (
-        <div className="flex items-end gap-4">
-          {[0, 1].map((k) => (
-            <div key={k} className="w-[clamp(90px,14vw,150px)] overflow-hidden rounded-[18px] border-[5px] border-ink bg-paper shadow-2xl" style={{ transform: k ? "translateY(-10%)" : "none" }}>
-              <div className="aspect-[9/17] p-3">
-                <p className="tiny !text-[7px]">Chapter {alt ? k + 3 : k + 1}</p>
-                <p className="mt-2 font-serif text-[13px] italic leading-tight">{alt ? (k ? "and then," : "the year it all") : k ? "where it" : "A story,"}</p>
-                <p className="font-serif text-[13px] leading-tight">{alt ? (k ? "everything." : "changed") : k ? "started." : "told slowly"}</p>
-                <div className="mt-3 aspect-square rounded-lg" style={{ background: "radial-gradient(circle at 30% 30%,#bdb8ad,#6f6b63)" }} />
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-      {kind === "design" && (
-        <div className="grid w-full grid-cols-3 gap-2.5">
-          {Array.from({ length: 6 }).map((_, k) => (
-            <div key={k} className="aspect-[4/3] rounded-md bg-white p-2 shadow-md" style={{ transform: alt ? `translateY(${(k % 3) * -6}px)` : "none", transition: "transform .7s var(--quint)" }}>
-              <div className="h-1.5 w-1/2 rounded-full bg-ink/70" />
-              <div className="mt-1.5 h-1 w-3/4 rounded-full bg-ink/20" />
-              <div className="mt-2 h-[45%] rounded-sm" style={{ background: k % 2 ? "rgb(var(--ink-rgb) / .16)" : "rgb(var(--ink-rgb) / .28)" }} />
-            </div>
-          ))}
         </div>
       )}
       {kind === "systems" && (

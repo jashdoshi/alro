@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Arrow, SectionHead, Swap } from "@/components/flow/bits";
 import { Logo } from "@/components/flow/logo";
@@ -62,6 +63,8 @@ const philosophy: { t: string; c: string; icon: LineIconName }[] = [
   { t: "Keep it useful.", c: "Complexity isn’t the same thing as value.", icon: "minus" },
 ];
 
+const founderImages = ["/images/sumedh-kudav.jpg", "/images/jash-doshi.jpg"] as const;
+
 export default function AboutPage() {
   return (
     <>
@@ -105,24 +108,27 @@ export default function AboutPage() {
             {founders.map((f, k) => (
               <article key={f.name} className="grid content-start gap-6">
                 <div className="relative aspect-[4/3] max-h-[420px] w-full overflow-hidden rounded-[1.25rem]" data-clip>
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        k === 0
-                          ? "radial-gradient(90% 70% at 30% 20%, var(--scene-a) 0%, var(--scene-b) 55%, var(--scene-c) 100%)"
-                          : "radial-gradient(90% 70% at 70% 20%, var(--scene-a) 0%, var(--scene-b) 55%, var(--scene-c) 100%)",
-                    }}
+                  <Image
+                    src={founderImages[k]}
+                    alt={k === 0 ? "Sumedh Kudav seated at a café" : "Jash Doshi seated outdoors"}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className={`object-cover ${k === 0 ? "object-[center_30%]" : "object-[center_65%]"}`}
                     data-clip-img
                   />
-                  <span className="tiny absolute bottom-5 left-5">Portrait</span>
+                  <span className="tiny absolute bottom-5 left-5 !text-white/70">Portrait</span>
                   <span className="tiny absolute right-5 top-5">{String(k + 1).padStart(2, "0")}</span>
                 </div>
                 <div className="grid gap-3" data-reveal="fade">
                   <span className="eyebrow">{f.role}</span>
                   <h3 className="h3">{f.name}</h3>
                   <p className="body max-w-[32rem]">{f.bio}</p>
-                  <Link href={f.href} className="line-link relative after:absolute after:inset-x-0 after:-inset-y-3 mt-3 w-fit">
+                  <Link
+                    href={f.href}
+                    className="line-link relative after:absolute after:inset-x-0 after:-inset-y-3 mt-3 w-fit"
+                    target={f.href.startsWith("http") ? "_blank" : undefined}
+                    rel={f.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  >
                     See {f.name}’s work
                     <Arrow />
                   </Link>
@@ -144,7 +150,7 @@ export default function AboutPage() {
               {founderNote}
             </p>
             <footer className="tiny" data-reveal="fade">
-              [Founder One] &amp; [Founder Two]
+              Sumedh Kudav &amp; Jash Doshi
             </footer>
           </blockquote>
         </div>

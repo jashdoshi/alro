@@ -21,6 +21,7 @@
   --scene-a: #f1efea;
   --scene-b: #dedbd4;
   --scene-c: #c4c0b8;
+  --noise-texture: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
 
   --flow-ease: cubic-bezier(0.76, 0, 0.24, 1);
   --quint: cubic-bezier(0.23, 1, 0.32, 1);
@@ -466,6 +467,65 @@
     background: rgb(var(--ink-rgb) / 0.14);
   }
 
+  /* Frosted preview fields: broad colour blooms plus a shared fine grain. */
+  .frost-field {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--frost-base);
+  }
+  .frost-field::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: -22%;
+    background: var(--frost-bloom);
+    filter: blur(var(--frost-blur, 26px)) saturate(var(--frost-saturation, 115%));
+    transform: scale(1.08);
+  }
+  .frost-field::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    background-image: var(--noise-texture);
+    background-size: 220px;
+    mix-blend-mode: soft-light;
+    opacity: var(--frost-grain-opacity, 0.3);
+    pointer-events: none;
+  }
+  .frost-field > * {
+    position: relative;
+    z-index: 1;
+  }
+  .frost-field--web {
+    --frost-base: oklch(65% 0.18 55);
+    --frost-blur: 18px;
+    --frost-saturation: 118%;
+    --frost-grain-opacity: 0.5;
+    --frost-bloom:
+      radial-gradient(ellipse 54% 78% at 8% 5%, oklch(84% 0.19 82) 0 30%, transparent 72%),
+      radial-gradient(ellipse 48% 70% at 48% 18%, oklch(71% 0.2 52) 0 28%, transparent 70%),
+      radial-gradient(ellipse 46% 68% at 88% 2%, oklch(42% 0.025 70) 0 24%, transparent 68%),
+      radial-gradient(ellipse 64% 58% at 18% 104%, oklch(27% 0.09 40) 0 32%, transparent 74%),
+      radial-gradient(ellipse 58% 62% at 92% 96%, oklch(45% 0.16 45) 0 30%, transparent 72%),
+      linear-gradient(
+        145deg,
+        oklch(82% 0.18 82) 0%,
+        oklch(67% 0.2 55) 35%,
+        oklch(42% 0.06 55) 68%,
+        oklch(32% 0.1 40) 100%
+      );
+  }
+  .frost-field--assistant {
+    --frost-base: oklch(43% 0.07 175);
+    --frost-bloom:
+      radial-gradient(circle at 12% 12%, oklch(90% 0.15 110) 0 16%, transparent 45%),
+      radial-gradient(circle at 86% 24%, oklch(73% 0.13 145) 0 17%, transparent 47%),
+      radial-gradient(circle at 52% 92%, oklch(48% 0.1 195) 0 18%, transparent 50%),
+      linear-gradient(140deg, oklch(63% 0.12 135), oklch(30% 0.05 215));
+  }
+
   /* project cards */
   .pcard .media {
     position: relative;
@@ -496,6 +556,43 @@
   }
   .pcard:hover h3 {
     color: var(--grey);
+  }
+
+  /* Real-site captures move behind the clipped card as a short page tour. */
+  .portfolio-preview {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #080405;
+    color: #c7bead;
+  }
+  .portfolio-preview__track {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    will-change: transform;
+  }
+  .portfolio-preview__track img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .portfolio-preview__label {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    padding: 0.45rem 0.65rem;
+    border-radius: 999px;
+    background: rgb(8 4 5 / 0.76);
+    color: #c7bead;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .pcard:hover .portfolio-preview__track,
+  .pcard.opacity-100 .portfolio-preview__track {
+    animation: portfolio-scroll-preview 5.5s var(--quint) both;
   }
 
   /* marquee */
@@ -617,7 +714,7 @@
     pointer-events: none;
     opacity: 0.05;
     mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    background-image: var(--noise-texture);
     background-size: 300px;
   }
 
@@ -924,6 +1021,16 @@ html.flow.pl-skip [data-hero] {
     transform-origin: bottom;
   }
 }
+@keyframes portfolio-scroll-preview {
+  0%,
+  12% {
+    transform: translateY(0);
+  }
+  78%,
+  100% {
+    transform: translateY(-66.66%);
+  }
+}
 @keyframes caret {
   50% {
     opacity: 0;
@@ -937,6 +1044,7 @@ html.flow.pl-skip [data-hero] {
   }
   .scroll-line::after,
   .c-flower .c-orbit,
+  .portfolio-preview__track,
   [data-orbit] {
     animation: none !important;
   }

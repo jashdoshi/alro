@@ -218,18 +218,18 @@ export const faqCI: Faq[] = [
 
 export const founders = [
   {
-    name: "[Founder One]",
+    name: "Sumedh Kudav",
     role: "Design & Development",
-    bio: "[A short, factual description of this founder’s strengths in visual design, interface design and frontend development.]",
-    href: "/work/founder-one-portfolio",
+    bio: "Sumedh is a software engineer at Sypha AI who builds production AI features and websites. He designs and develops digital experiences himself, with a focus on speed, taste and making brands look like what they charge.",
+    href: "https://sumedhs-portfolio.vercel.app/",
   },
   {
-    name: "[Founder Two]",
+    name: "Jash Doshi",
     role: "AI & Systems",
-    bio: "[A short, factual description of this founder’s strengths in AI systems, integrations and automation.]",
-    href: "/work/founder-two-portfolio",
+    bio: "Jash is an ECE graduate who has spent more time shipping AI systems than studying circuits and signals. He builds agentic systems, knowledge graphs and digital products, and cares as much about how things look as how they work.",
+    href: "https://jashdoshi.in",
   },
 ];
 
 export const founderNote =
-  "[A short personal note in your own words: why you started alro, and what a client can expect from working with the two of you.]";
+  "One of us obsesses over how it looks. The other obsesses over how it works. We started alro so clients could get both obsessions in one room — with honest advice, fewer meetings, and no account manager in the middle.";

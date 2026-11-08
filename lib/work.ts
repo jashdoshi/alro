@@ -103,9 +103,9 @@ export const work: WorkItem[] = [
   },
   {
     slug: "founder-one-portfolio",
-    title: "Selected work by [Founder One]",
+    title: "Selected work by Sumedh Kudav",
     summary: "Design and frontend work made before alro., with role and context clearly attributed.",
-    label: "Individual portfolio · [Founder One]",
+    label: "Individual portfolio · Sumedh Kudav",
     kind: "portfolio",
     practice: "Websites",
     year: "[Years]",
@@ -119,13 +119,13 @@ export const work: WorkItem[] = [
       { title: "What it demonstrates", body: "[Specific, substantiated capabilities.]" },
       { title: "Limitations", body: "This work predates alro. and was not commissioned from the studio." },
     ],
-    externalLink: { label: "View the full portfolio", href: "#" },
+    externalLink: { label: "Visit Sumedh’s portfolio", href: "https://sumedhs-portfolio.vercel.app/" },
   },
   {
     slug: "founder-two-portfolio",
-    title: "Selected work by [Founder Two]",
+    title: "Selected work by Jash Doshi",
     summary: "Systems, automation and engineering work made before alro., with role and context clearly attributed.",
-    label: "Individual portfolio · [Founder Two]",
+    label: "Individual portfolio · Jash Doshi",
     kind: "portfolio",
     practice: "Intelligent systems",
     year: "[Years]",
@@ -139,7 +139,7 @@ export const work: WorkItem[] = [
       { title: "What it demonstrates", body: "[Specific, substantiated capabilities.]" },
       { title: "Limitations", body: "This work predates alro. and was not commissioned from the studio." },
     ],
-    externalLink: { label: "View the full portfolio", href: "#" },
+    externalLink: { label: "Visit jashdoshi.in", href: "https://jashdoshi.in" },
   },
 ];
 

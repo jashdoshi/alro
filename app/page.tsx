@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Arrow, SectionHead, Swap } from "@/components/flow/bits";
 import { BrainDemo } from "@/components/home/brain-demo";
@@ -50,7 +51,12 @@ const philosophy = [
   { t: "Keep it useful.", c: "Complexity isn’t the same thing as value.", icon: "minus" },
 ] as const;
 
-const labKinds = { "company-knowledge-assistant": "assistant", "birthday-website": "story", "founder-one-portfolio": "design", "founder-two-portfolio": "systems" } as const;
+const labKinds = {
+  "company-knowledge-assistant": "assistant",
+  "birthday-website": "story",
+  "founder-one-portfolio": "sumedh-portfolio",
+  "founder-two-portfolio": "jash-portfolio",
+} as const;
 
 export default function Home() {
   return (
@@ -227,23 +233,37 @@ export default function Home() {
             </p>
           </div>
           <div className="mt-[clamp(3rem,6vw,5rem)] grid gap-12 md:grid-cols-2 md:[&>*:nth-child(even)]:mt-24">
-            {work.map((w) => (
-              <Link key={w.slug} href={`/work/${w.slug}`} className="pcard grid gap-4 no-underline" data-cursor-flower>
-                <div className="media" data-clip>
-                  <LabMedia kind={labKinds[w.slug as keyof typeof labKinds] ?? "design"} />
-                </div>
-                <div className="flex items-start justify-between gap-6" data-reveal="fade">
-                  <div className="grid gap-2">
-                    <h3 className="text-[1.6rem] leading-tight">{w.title}</h3>
-                    <span className="tiny">{w.label}</span>
-                    <p className="body max-w-[34rem]">{w.summary}</p>
+            {work.map((w) => {
+              const externalHref = w.externalLink?.href !== "#" ? w.externalLink?.href : undefined;
+              const WorkLink = externalHref ? "a" : Link;
+              const href = externalHref ?? `/work/${w.slug}`;
+
+              return (
+                <WorkLink
+                  key={w.slug}
+                  href={href}
+                  className="pcard grid gap-4 no-underline"
+                  data-cursor-flower
+                  {...(externalHref
+                    ? { target: "_blank", rel: "noopener noreferrer", "aria-label": `${w.title} — opens the portfolio in a new tab` }
+                    : {})}
+                >
+                  <div className="media" data-clip>
+                    <LabMedia kind={labKinds[w.slug as keyof typeof labKinds] ?? "design"} />
                   </div>
-                  <span className="mt-1 grid h-11 w-11 flex-none place-items-center rounded-full border border-ink/15">
-                    <Arrow className="h-4 w-4" />
-                  </span>
-                </div>
-              </Link>
-            ))}
+                  <div className="flex items-start justify-between gap-6" data-reveal="fade">
+                    <div className="grid gap-2">
+                      <h3 className="text-[1.6rem] leading-tight">{w.title}</h3>
+                      <span className="tiny">{w.label}</span>
+                      <p className="body max-w-[34rem]">{w.summary}</p>
+                    </div>
+                    <span className="mt-1 grid h-11 w-11 flex-none place-items-center rounded-full border border-ink/15">
+                      <Arrow className="h-4 w-4" />
+                    </span>
+                  </div>
+                </WorkLink>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -336,7 +356,7 @@ export default function Home() {
 /** Websites: exceptional web craft — a type-led page in a browser frame. */
 function WebsiteCraft() {
   return (
-    <div className="relative aspect-[16/10] bg-[linear-gradient(135deg,var(--scene-a),var(--scene-b))] p-[6%]" data-clip-img>
+    <div className="frost-field frost-field--web relative aspect-[16/10] p-[6%]" data-clip-img>
       <div className="window h-full">
         <div className="window-bar">
           <i />
@@ -354,7 +374,9 @@ function WebsiteCraft() {
               <span className="h-5 w-12 rounded-full border border-ink/30" />
             </div>
           </div>
-          <div className="rounded-md" style={{ background: "radial-gradient(120% 90% at 30% 15%, #d9d6cf 0%, #a9a59c 45%, #5f5d58 100%)" }} />
+          <div className="relative overflow-hidden rounded-md">
+            <Image src="/images/alro-web-craft.png" alt="" fill sizes="(min-width: 1024px) 220px, 38vw" className="object-cover" />
+          </div>
         </div>
       </div>
     </div>

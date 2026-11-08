@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const Q = "What’s pending for the Acme account?";
@@ -91,17 +92,13 @@ export function HeroWindows() {
                 </span>
               </div>
               <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
-                <div
-                  className="absolute inset-0 transition-transform duration-[900ms]"
-                  style={{
-                    background: "radial-gradient(120% 90% at 30% 15%, #d9d6cf 0%, #a9a59c 45%, #5f5d58 100%)",
-                    transform: site ? "scale(1.08)" : "scale(1)",
-                    transitionTimingFunction: "var(--quint)",
-                  }}
-                />
-                <div
-                  className="absolute inset-x-[16%] bottom-[14%] top-[34%] rounded-t-[999px] bg-white/30 transition-transform duration-700"
-                  style={{ transform: site ? "translateY(-6%)" : "none", transitionTimingFunction: "var(--quint)" }}
+                <Image
+                  src="/images/alro-web-craft.png"
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 200px, 30vw"
+                  className="object-cover transition-transform duration-[900ms]"
+                  style={{ transform: site ? "scale(1.08)" : "scale(1)", transitionTimingFunction: "var(--quint)" }}
                 />
               </div>
             </div>

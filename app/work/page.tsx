@@ -30,7 +30,15 @@ const evidence: { n: string; title: string; body: string; kinds: WorkKind[] }[] 
 ];
 
 export default function WorkPage() {
-  const items = work.map((w) => ({ slug: w.slug, title: w.title, label: w.label, practice: w.practice, year: w.year, media: labKind(w) }));
+  const items = work.map((w) => ({
+    slug: w.slug,
+    title: w.title,
+    label: w.label,
+    practice: w.practice,
+    year: w.year,
+    media: labKind(w),
+    externalHref: w.externalLink?.href !== "#" ? w.externalLink?.href : undefined,
+  }));
 
   return (
     <>

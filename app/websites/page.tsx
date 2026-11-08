@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Arrow, SectionHead, Swap } from "@/components/flow/bits";
 import { PageHero, Underlined } from "@/components/flow/page-hero";
@@ -344,10 +345,13 @@ function SiteCraft() {
                   <span className="h-4 w-10 rounded-full border border-ink/30" />
                 </div>
               </div>
-              <div className="aspect-[4/5] overflow-hidden rounded-md">
-                <div
-                  className="h-full w-full transition-transform duration-[900ms] ease-[var(--quint)] group-hover:scale-[1.06]"
-                  style={{ background: "radial-gradient(120% 90% at 30% 15%, #e2dfd8 0%, #aaa69d 48%, #5f5d58 100%)" }}
+              <div className="relative aspect-[4/5] overflow-hidden rounded-md">
+                <Image
+                  src="/images/alro-web-craft.png"
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 220px, 34vw"
+                  className="object-cover transition-transform duration-[900ms] ease-[var(--quint)] group-hover:scale-[1.06]"
                 />
               </div>
             </div>
@@ -377,7 +381,9 @@ function SiteCraft() {
               Good work, <em>introduced properly.</em>
             </p>
             <span className="h-2.5 w-10 rounded-full bg-ink" />
-            <div className="mt-1 aspect-square rounded" style={{ background: "radial-gradient(120% 90% at 30% 15%, #e2dfd8 0%, #aaa69d 48%, #5f5d58 100%)" }} />
+            <div className="relative mt-1 aspect-square overflow-hidden rounded">
+              <Image src="/images/alro-web-craft.png" alt="" fill sizes="120px" className="object-cover" />
+            </div>
             <i className="h-1 w-full rounded-full bg-ink/10" />
             <i className="h-1 w-2/3 rounded-full bg-ink/10" />
           </div>

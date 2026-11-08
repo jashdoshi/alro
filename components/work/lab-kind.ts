@@ -8,8 +8,8 @@ export type LabKind = ComponentProps<typeof LabMedia>["kind"];
 const bySlug: Record<string, LabKind> = {
   "company-knowledge-assistant": "assistant",
   "birthday-website": "story",
-  "founder-one-portfolio": "design",
-  "founder-two-portfolio": "systems",
+  "founder-one-portfolio": "sumedh-portfolio",
+  "founder-two-portfolio": "jash-portfolio",
 };
 
 export function labKind(item: Pick<WorkItem, "slug" | "practice">): LabKind {

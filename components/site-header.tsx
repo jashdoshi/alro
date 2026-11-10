@@ -30,10 +30,10 @@ export function SiteHeader() {
     <>
       <header id="siteHeader" className="fixed inset-x-0 top-[calc(16px+env(safe-area-inset-top,0px))] z-50 px-4">
         <nav className="glass mx-auto flex max-w-[46rem] items-center justify-between gap-4 rounded-full py-2.5 pl-6 pr-3" aria-label="Primary">
-          <Link href={routes.home} className="block text-ink no-underline" aria-label="alro. home">
+          <Link href={routes.home} className="block text-copy no-underline" aria-label="alro. home">
             <Logo className="h-[22px] w-auto" />
           </Link>
-          <div className="relative hidden items-center gap-7 text-[13px] font-medium uppercase tracking-[0.1em] text-ink/80 md:flex" data-nav-pill>
+          <div className="relative hidden items-center gap-7 text-[13px] font-medium uppercase tracking-[0.1em] text-copy/80 md:flex" data-nav-pill>
             {links.map((l) => (
               <Link key={l.label} href={l.href} className="relative z-[1] no-underline">
                 {l.label}
@@ -48,7 +48,7 @@ export function SiteHeader() {
             </Link>
             <button
               type="button"
-              className="grid h-10 w-10 flex-none place-items-center rounded-full border border-ink/15 text-ink transition-colors duration-300 hover:border-ink/40 md:hidden"
+              className="grid h-10 w-10 flex-none place-items-center rounded-full border border-ink/15 text-copy transition-colors duration-300 hover:border-ink/40 md:hidden"
               aria-label="Open menu"
               aria-expanded={open}
               aria-controls="mobileMenu"

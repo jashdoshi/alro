@@ -59,11 +59,11 @@ export function HeroWindows() {
             <i />
             <i />
             <i />
-            <span className="ml-3 h-5 flex-1 rounded-full bg-ink/[0.05] px-3 text-[10px] leading-5 text-ink/45">yourbusiness.com</span>
+            <span className="ml-3 h-5 flex-1 rounded-full bg-ink/[0.05] px-3 text-[10px] leading-5 text-copy/45">yourbusiness.com</span>
           </div>
           <div className="relative p-4 sm:p-5">
-            <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-[0.2em] text-ink/50">
-              <span className="text-[12px] normal-case tracking-[-0.02em] text-ink">Northfield</span>
+            <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-[0.2em] text-copy/50">
+              <span className="text-[12px] normal-case tracking-[-0.02em] text-copy">Northfield</span>
               <span className="hidden gap-4 sm:flex">
                 <span>Work</span>
                 <span>Studio</span>
@@ -83,10 +83,10 @@ export function HeroWindows() {
                   </span>{" "}
                   work.
                 </p>
-                <p className="mt-2 max-w-[22ch] text-[10px] leading-snug text-ink/55">Furniture made slowly, for rooms that are lived in.</p>
+                <p className="mt-2 max-w-[22ch] text-[10px] leading-snug text-copy/55">Furniture made slowly, for rooms that are lived in.</p>
                 <span
                   className="mt-3 inline-block rounded-full border px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.15em] transition-colors duration-500"
-                  style={{ background: site ? "var(--ink)" : "transparent", color: site ? "var(--paper)" : "var(--ink)", borderColor: "rgb(var(--ink-rgb) / .3)" }}
+                  style={{ background: site ? "var(--ink)" : "transparent", color: site ? "var(--paper)" : "var(--copy)", borderColor: "rgb(var(--ink-rgb) / .3)" }}
                 >
                   View collection
                 </span>
@@ -130,22 +130,22 @@ export function HeroWindows() {
       >
         <div className="window">
           <div className="window-bar justify-between">
-            <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-ink/70">
+            <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-copy/70">
               <span className="h-1.5 w-1.5 rounded-full bg-ink" />
               Company Brain
             </span>
-            <span className="text-[9px] uppercase tracking-[0.15em] text-ink/40">illustrative</span>
+            <span className="text-[9px] uppercase tracking-[0.15em] text-copy/40">illustrative</span>
           </div>
           <div className="grid min-h-[190px] content-start gap-3 p-4">
             <div className="ml-auto max-w-[90%] rounded-2xl rounded-br-sm bg-ink/[0.05] px-3 py-2 text-[11px] leading-snug">
-              {typed > 0 ? Q.slice(0, typed) : <span className="text-ink/40">Ask about your business…</span>}
+              {typed > 0 ? Q.slice(0, typed) : <span className="text-copy/40">Ask about your business…</span>}
               {brain && !done && <span className="ml-0.5 inline-block h-3 w-px translate-y-0.5 bg-ink" style={{ animation: "caret 1s steps(1) infinite" }} />}
             </div>
             <div className={`grid gap-2 transition-all duration-500 ${done ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}`}>
-              <p className="text-[11px] leading-snug text-ink/80">{A}</p>
+              <p className="text-[11px] leading-snug text-copy/80">{A}</p>
               <div className="flex flex-wrap gap-1.5">
                 {["CRM", "Project tracker", "Drive"].map((s) => (
-                  <span key={s} className="rounded-full border border-ink/15 px-2 py-0.5 text-[9px] uppercase tracking-[0.12em] text-ink/55">
+                  <span key={s} className="rounded-full border border-ink/15 px-2 py-0.5 text-[9px] uppercase tracking-[0.12em] text-copy/55">
                     {s}
                   </span>
                 ))}

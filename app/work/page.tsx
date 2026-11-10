@@ -19,7 +19,7 @@ const evidence: { n: string; title: string; body: string; kinds: WorkKind[] }[] 
     n: "01",
     title: "Craft evidence",
     body: "Websites, interfaces and technical projects, with each founder’s contribution and the reasoning behind it. Judge the thinking and the finish.",
-    kinds: ["portfolio", "experiment"],
+    kinds: ["product", "portfolio", "experiment"],
   },
   {
     n: "02",

@@ -172,7 +172,7 @@ export function FlowEngine() {
     };
     if (pre && !html.classList.contains("pl-skip") && !reduce) {
       lenis?.stop();
-      const chars = pre.querySelectorAll(".pl-char"), tag = pre.querySelector(".pl-tag"), cnt = pre.querySelector(".pl-count") as HTMLElement;
+      const logo = pre.querySelector(".pl-logo-mark"), tag = pre.querySelector(".pl-tag"), cnt = pre.querySelector(".pl-count") as HTMLElement;
       const n = { v: 0 };
       gsap
         .timeline({
@@ -185,11 +185,11 @@ export function FlowEngine() {
           },
         })
         .set(pre, { yPercent: 0 })
-        .from(chars, { yPercent: 130, duration: 0.9, ease: "power4.out", stagger: 0.055 })
+        .from(logo, { yPercent: 130, duration: 0.9, ease: "power4.out" })
         .to(tag, { opacity: 1, duration: 0.5 }, "-=0.4")
         .to(cnt, { opacity: 1, duration: 0.4 }, "<")
         .to(n, { v: 100, duration: 1.3, ease: "power2.inOut", onUpdate: () => void (cnt.textContent = String(Math.round(n.v))) }, 0.35)
-        .to(chars, { yPercent: -130, duration: 0.6, ease: "power3.in", stagger: 0.04 }, "+=0.05")
+        .to(logo, { yPercent: -130, duration: 0.6, ease: "power3.in" }, "+=0.05")
         .to([tag, cnt], { opacity: 0, duration: 0.35 }, "<")
         .to(pre, { yPercent: -112, duration: 1.1, ease: "expo.inOut" }, "-=0.3")
         .add(markReady, "-=0.75");

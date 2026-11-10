@@ -53,7 +53,7 @@ const philosophy = [
 
 const labKinds = {
   "company-knowledge-assistant": "assistant",
-  "birthday-website": "story",
+  "promptly-app": "promptly-site",
   "founder-one-portfolio": "sumedh-portfolio",
   "founder-two-portfolio": "jash-portfolio",
 } as const;
@@ -71,12 +71,12 @@ export default function Home() {
         <div className="wrap relative">
           <h1 className="flex flex-col font-serif leading-[0.98] tracking-[-0.025em]">
             <span className="block w-fit text-[clamp(2.5rem,7.6vw,8.2rem)] will-change-transform md:whitespace-nowrap" data-hero="top">
-              Make a good impression.
+              All brains.
             </span>
             <span className="block w-fit self-end text-right text-[clamp(2.5rem,7.6vw,8.2rem)] will-change-transform md:whitespace-nowrap" data-hero="bottom">
-              Then make{" "}
+              Good{" "}
               <span className="relative inline-block italic">
-                good on it.
+                looks too.
                 <svg data-hero="underline" className="pointer-events-none absolute -bottom-[0.1em] left-[-3%] h-[0.26em] w-[106%] overflow-visible" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true">
                   <path d="M4 14 C 60 4, 140 2, 200 8 S 280 16, 296 6" stroke="var(--grey)" strokeWidth="3" strokeLinecap="round" fill="none" vectorEffect="non-scaling-stroke" />
                 </svg>
@@ -86,7 +86,7 @@ export default function Home() {
 
           <div className="mt-[clamp(2.5rem,6vh,4.5rem)] grid items-end gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
             <div className="grid max-w-[30rem] gap-7">
-              <p className="text-[1.125rem] font-light leading-[1.625] text-ink/70" data-hero="text">
+              <p className="text-[1.125rem] font-light leading-[1.625] text-copy/70" data-hero="text">
                 We build bespoke websites and AI-powered business systems. One helps your business show up better. The other helps your team work better.
               </p>
               <div className="flex flex-col items-start gap-6 sm:flex-row sm:flex-wrap sm:items-center">
@@ -157,7 +157,7 @@ export default function Home() {
                   </div>
                   <div className="relative grid gap-4">
                     <h3 className="h3">{s.name}</h3>
-                    <p className="font-serif text-[1.35rem] italic leading-snug text-ink/80">{s.line}</p>
+                    <p className="font-serif text-[1.35rem] italic leading-snug text-copy/80">{s.line}</p>
                     <p className="body max-w-[30rem]">{s.body}</p>
                   </div>
                   <div className="relative mt-auto flex flex-wrap items-center justify-between gap-6">
@@ -245,7 +245,7 @@ export default function Home() {
                   className="pcard grid gap-4 no-underline"
                   data-cursor-flower
                   {...(externalHref
-                    ? { target: "_blank", rel: "noopener noreferrer", "aria-label": `${w.title} — opens the portfolio in a new tab` }
+                    ? { target: "_blank", rel: "noopener noreferrer", "aria-label": `${w.title} — opens the external site in a new tab` }
                     : {})}
                 >
                   <div className="media" data-clip>

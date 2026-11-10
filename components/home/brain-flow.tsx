@@ -45,7 +45,7 @@ const outPath = (y: number) => {
 
 export function BrainFlow() {
   return (
-    <div className="bf relative aspect-[16/10] overflow-hidden bg-[linear-gradient(135deg,#191715,#34312d)]" data-clip-img>
+    <div className="bf relative aspect-[16/10] overflow-hidden bg-[linear-gradient(135deg,#151515,#303030)]" data-clip-img>
       <svg viewBox="0 0 160 100" className="absolute inset-0 h-full w-full" fill="none" aria-hidden="true">
         {sources.map((s, i) => (
           <g key={s.name}>

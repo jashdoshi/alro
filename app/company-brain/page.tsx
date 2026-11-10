@@ -237,7 +237,7 @@ export default function CompanyBrainPage() {
                 </span>
                 <h3 className="text-[1.6rem] leading-tight">{j.title}</h3>
                 <p className="body">{j.body}</p>
-                <p className="font-serif text-[1.15rem] italic leading-snug text-ink/80">“{j.example}”</p>
+                <p className="font-serif text-[1.15rem] italic leading-snug text-copy/80">“{j.example}”</p>
               </div>
             ))}
           </div>
@@ -328,7 +328,7 @@ export default function CompanyBrainPage() {
                     </span>
                   ))}
                 </div>
-                <p className="text-[12px] leading-relaxed text-ink/55">Categories, not a list of supported products.</p>
+                <p className="text-[12px] leading-relaxed text-copy/55">Categories, not a list of supported products.</p>
               </div>
               <ol className="grid gap-5 border-t border-ink/12 pt-6">
                 {integrationSteps.map((s, k) => (
@@ -367,7 +367,7 @@ export default function CompanyBrainPage() {
               >
                 <div className="flex items-center justify-between gap-4">
                   <span className="tiny">{String(k + 1).padStart(2, "0")}</span>
-                  {s.hot && <span className="chip !border-ink !text-ink">Where we start</span>}
+                  {s.hot && <span className="chip !border-ink !text-copy">Where we start</span>}
                 </div>
                 <div className="grid gap-3">
                   <h3 className="text-[clamp(1.6rem,2.4vw,1.9rem)] leading-tight">{s.title}</h3>
@@ -375,8 +375,8 @@ export default function CompanyBrainPage() {
                 </div>
                 <ul className="grid gap-3 border-t border-ink/12 pt-6">
                   {s.items.map((it) => (
-                    <li key={it} className="flex gap-3 text-[15px] leading-snug text-ink/80">
-                      <span className="mt-0.5 h-4 w-4 flex-none text-ink/60">
+                    <li key={it} className="flex gap-3 text-[15px] leading-snug text-copy/80">
+                      <span className="mt-0.5 h-4 w-4 flex-none text-copy/60">
                         <Icon name={k === 2 ? "dash" : "tick"} className="h-4 w-4" />
                       </span>
                       {it}
@@ -434,8 +434,8 @@ export default function CompanyBrainPage() {
             </div>
             <ul className="border-t border-ink/12">
               {deployment.answered.map((a) => (
-                <li key={a} className="flex gap-4 border-b border-ink/12 py-4 text-[15px] leading-snug text-ink/80">
-                  <span className="mt-0.5 h-4 w-4 flex-none text-ink">
+                <li key={a} className="flex gap-4 border-b border-ink/12 py-4 text-[15px] leading-snug text-copy/80">
+                  <span className="mt-0.5 h-4 w-4 flex-none text-copy">
                     <Icon name="tick" className="h-4 w-4" />
                   </span>
                   {a}
@@ -545,11 +545,11 @@ function HeroAssistant() {
           <i />
           <i />
           <i />
-          <span className="ml-3 flex min-w-0 flex-1 items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-ink/55">
+          <span className="ml-3 flex min-w-0 flex-1 items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-copy/55">
             <span className="h-1.5 w-1.5 flex-none rounded-full bg-ink" />
             <span className="truncate">Company Brain</span>
           </span>
-          <span className="hidden rounded-full border border-ink/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.15em] text-ink/50 sm:inline">Sample data</span>
+          <span className="hidden rounded-full border border-ink/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.15em] text-copy/50 sm:inline">Sample data</span>
         </div>
         <div className="grid gap-5 p-5 sm:p-6">
           <p className="ml-auto max-w-[88%] rounded-2xl rounded-br-sm bg-ink/[0.06] px-4 py-3 text-[14px] leading-snug">
@@ -571,15 +571,15 @@ function HeroAssistant() {
             </div>
           </div>
           <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-ink/10 bg-ink/[0.02] px-4 py-3">
-            <span className="flex items-center gap-2.5 text-[13px] text-ink/75">
+            <span className="flex items-center gap-2.5 text-[13px] text-copy/75">
               <span className="h-1.5 w-1.5 flex-none rounded-full bg-ink/40" />
               Sending final quantities has no owner yet
             </span>
-            <span className="rounded-full border border-ink/20 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-ink/70">Needs a person</span>
+            <span className="rounded-full border border-ink/20 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-copy/70">Needs a person</span>
           </div>
         </div>
       </div>
-      <figcaption className="mt-3 text-[12px] text-ink/50">Illustrative interface with sample data.</figcaption>
+      <figcaption className="mt-3 text-[12px] text-copy/50">Illustrative interface with sample data.</figcaption>
     </figure>
   );
 }

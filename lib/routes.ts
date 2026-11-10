@@ -10,4 +10,4 @@ export const routes = {
   privacy: "/privacy",
 };
 
-export const email = "hello@alro.studio";
+export const email = "hello@alro.one";

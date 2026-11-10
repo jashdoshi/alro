@@ -11,7 +11,7 @@ const subscribe = (cb: () => void) => {
   return () => mo.disconnect();
 };
 
-/** Switches light ↔ dark (beige on near-black). Persisted; first visit follows the OS. */
+/** Switches light ↔ dark. Persisted; first visit follows the OS. */
 export function ThemeToggle({ className = "" }: { className?: string }) {
   const theme = useSyncExternalStore(subscribe, read, () => "light" as Theme);
   const next: Theme = theme === "dark" ? "light" : "dark";
@@ -32,7 +32,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       onClick={toggle}
       aria-label={`Switch to ${next} theme`}
       title={`Switch to ${next} theme`}
-      className={`relative grid h-10 w-10 flex-none place-items-center rounded-full border border-ink/15 text-ink transition-colors duration-300 hover:border-ink/40 ${className}`}
+      className={`relative grid h-10 w-10 flex-none place-items-center rounded-full border border-ink/15 text-copy transition-colors duration-300 hover:border-ink/40 ${className}`}
     >
       <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" aria-hidden="true">
         {/* half-filled disc: reads as "contrast" in both themes; rotates on switch */}

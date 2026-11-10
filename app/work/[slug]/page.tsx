@@ -184,7 +184,7 @@ export default async function WorkDetailPage({ params }: Props) {
           {groups.map((g, k) => (
             <article key={g.label} className="grid gap-8 border-t border-ink/12 pt-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.4fr)] lg:gap-16">
               <header className="grid content-start gap-4 lg:sticky lg:top-32 lg:self-start">
-                <span className="font-serif text-[clamp(3rem,6vw,5rem)] italic leading-none text-ink/15" aria-hidden="true">
+                <span className="font-serif text-[clamp(3rem,6vw,5rem)] italic leading-none text-copy/15" aria-hidden="true">
                   {String(k + 1).padStart(2, "0")}
                 </span>
                 <span className="eyebrow">{g.label}</span>
@@ -195,7 +195,7 @@ export default async function WorkDetailPage({ params }: Props) {
               <div className="grid content-start gap-10">
                 {g.sections.map((s) => (
                   <div key={s.title} className="grid gap-4" data-reveal="fade">
-                    <h3 className="tiny !text-ink/60">{s.title}</h3>
+                    <h3 className="tiny !text-copy/60">{s.title}</h3>
                     <SectionBody section={s} />
                   </div>
                 ))}
@@ -252,7 +252,7 @@ export default async function WorkDetailPage({ params }: Props) {
               <Arrow />
             </Link>
           </div>
-          <Link href={`/work/${next.slug}`} data-cursor-invert className="group relative block overflow-hidden border-y border-ink/12 text-ink no-underline">
+          <Link href={`/work/${next.slug}`} data-cursor-invert className="group relative block overflow-hidden border-y border-ink/12 text-copy no-underline">
             <span aria-hidden="true" className="absolute inset-0 origin-bottom scale-y-0 bg-ink transition-transform duration-[600ms] ease-[var(--flow-ease)] group-hover:scale-y-100" />
             <span className="relative grid gap-6 py-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:px-6 md:py-14">
               <span className="grid min-w-0 gap-3 transition-transform duration-[600ms] ease-[var(--flow-ease)] group-hover:translate-x-[14px]">
@@ -284,7 +284,7 @@ function SectionBody({ section }: { section: Section }) {
     );
   }
   if (isPlaceholder(section.body)) {
-    return <p className="rounded-2xl border border-dashed border-ink/25 px-5 py-4 text-[15px] leading-relaxed text-ink/55">{section.body}</p>;
+    return <p className="rounded-2xl border border-dashed border-ink/25 px-5 py-4 text-[15px] leading-relaxed text-copy/55">{section.body}</p>;
   }
   return <p className="lead">{section.body}</p>;
 }

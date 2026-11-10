@@ -5,11 +5,11 @@ import Image from "next/image";
  * Each has a still and a "moving" state that crossfades on card hover.
  */
 type SceneKind = "assistant" | "story" | "design" | "systems";
-type PortfolioKind = "jash-portfolio" | "sumedh-portfolio";
+type PortfolioKind = "jash-portfolio" | "promptly-site" | "sumedh-portfolio";
 type Kind = SceneKind | PortfolioKind;
 
 export function LabMedia({ kind }: { kind: Kind }) {
-  if (kind === "jash-portfolio" || kind === "sumedh-portfolio") {
+  if (kind === "jash-portfolio" || kind === "promptly-site" || kind === "sumedh-portfolio") {
     return <PortfolioPreview kind={kind} />;
   }
 
@@ -32,6 +32,14 @@ export function LabMedia({ kind }: { kind: Kind }) {
  * avoids cross-site frame restrictions and keeps the card lightweight.
  */
 const portfolioPreviews = {
+  "promptly-site": {
+    label: "trypromptlyapp.com",
+    frames: [
+      { src: "/images/promptly-hero.png", alt: "Promptly product website hero" },
+      { src: "/images/promptly-benefits.png", alt: "Benefits section from the Promptly product website" },
+      { src: "/images/promptly-pricing.png", alt: "Pricing section from the Promptly product website" },
+    ],
+  },
   "jash-portfolio": {
     label: "jashdoshi.in",
     frames: [
@@ -66,8 +74,8 @@ function PortfolioPreview({ kind }: { kind: PortfolioKind }) {
 }
 
 const bg = {
-  story: "#050403",
-  design: "#050403",
+  story: "#050505",
+  design: "#050505",
   systems: "linear-gradient(135deg,#2a2a28 0%,#111 100%)",
 } satisfies Record<Exclude<SceneKind, "assistant">, string>;
 
@@ -96,14 +104,14 @@ function Scene({ kind, alt }: { kind: SceneKind; alt: boolean }) {
       )}
       {kind === "assistant" && (
         <div className="grid w-full max-w-[78%] gap-2.5 rounded-xl bg-white p-4 shadow-2xl">
-          <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-[0.18em] text-ink/60">
+          <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-[0.18em] text-copy/60">
             <span>Knowledge assistant</span>
             <span>{alt ? "Weekly briefing" : "Ask"}</span>
           </div>
           {alt ? (
             <>
               {["Decided — pricing held for existing accounts", "Changed — launch moved one week", "Open — three replies outstanding"].map((t) => (
-                <p key={t} className="border-t border-ink/10 pt-2 text-[10px] text-ink/75">
+                <p key={t} className="border-t border-ink/10 pt-2 text-[10px] text-copy/75">
                   {t}
                 </p>
               ))}
@@ -114,7 +122,7 @@ function Scene({ kind, alt }: { kind: SceneKind; alt: boolean }) {
               <p className="font-serif text-[12px] leading-snug">Hold prices for existing accounts until January.</p>
               <div className="flex gap-1.5">
                 {["Meeting notes", "Pricing v3"].map((s) => (
-                  <span key={s} className="rounded-full border border-ink/15 px-2 py-0.5 text-[8px] uppercase tracking-[0.12em] text-ink/55">
+                  <span key={s} className="rounded-full border border-ink/15 px-2 py-0.5 text-[8px] uppercase tracking-[0.12em] text-copy/55">
                     {s}
                   </span>
                 ))}

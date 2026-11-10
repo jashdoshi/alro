@@ -6,7 +6,7 @@
 
 export const site = {
   name: "ALRO",
-  email: "hello@alro.studio",
+  email: "hello@alro.one",
   tagline: "Digital experiences with feeling. Intelligent systems with purpose.",
   descriptor: "Digital Craft & Intelligence",
 };

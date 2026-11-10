@@ -7,7 +7,7 @@ export type LabKind = ComponentProps<typeof LabMedia>["kind"];
 /** Which interface illustration stands in for each lab piece (same pairing as the home page). */
 const bySlug: Record<string, LabKind> = {
   "company-knowledge-assistant": "assistant",
-  "birthday-website": "story",
+  "promptly-app": "promptly-site",
   "founder-one-portfolio": "sumedh-portfolio",
   "founder-two-portfolio": "jash-portfolio",
 };

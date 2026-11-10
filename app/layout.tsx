@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import { FlowEngine } from "@/components/flow/engine";
+import { Logo } from "@/components/flow/logo";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
@@ -9,7 +10,7 @@ const inter = Inter({ variable: "--font-inter", subsets: ["latin"], weight: ["30
 const playfair = Playfair_Display({ variable: "--font-playfair", subsets: ["latin"], weight: ["400", "600"], style: ["normal", "italic"] });
 
 export const metadata: Metadata = {
-  title: { default: "alro. — Make a good impression. Then make good on it.", template: "%s · alro." },
+  title: { default: "alro. — Bespoke Websites & AI Systems", template: "%s · alro." },
   description:
     "Independent creative technology studio. We build bespoke websites and AI-powered business systems. One helps your business show up better. The other helps your team work better.",
 };
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#fbfbf9" },
-    { media: "(prefers-color-scheme: dark)", color: "#070304" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
   ],
 };
 
@@ -30,18 +31,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: prePaint }} />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">
           Skip to content
         </a>
 
         <div className="preloader" data-preloader aria-hidden="true">
           <div className="pl-logo">
-            {["a", "l", "r", "o", "."].map((c, i) => (
-              <span key={i} className={`pl-char${i === 4 ? " it" : ""}`}>
-                {c}
-              </span>
-            ))}
+            <Logo className="pl-logo-mark" />
           </div>
           <div className="pl-tag">design. engineering. intelligence.</div>
           <div className="pl-count">0</div>

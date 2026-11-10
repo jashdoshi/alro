@@ -51,13 +51,13 @@ export function Journey() {
             >
               <span
                 className={`relative z-[1] grid h-[4.2rem] w-[4.2rem] place-items-center rounded-full border text-[11px] font-bold tracking-[0.15em] transition-all duration-500 ${
-                  active ? "border-ink bg-ink text-paper shadow-[0_10px_20px_rgb(var(--shadow-rgb)/0.15)]" : k < i ? "border-ink/40 bg-paper text-ink" : "border-ink/15 bg-paper text-ink/50 group-hover:border-ink/40"
+                  active ? "border-ink bg-ink text-paper shadow-[0_10px_20px_rgb(var(--shadow-rgb)/0.15)]" : k < i ? "border-ink/40 bg-paper text-copy" : "border-ink/15 bg-paper text-copy/50 group-hover:border-ink/40"
                 }`}
                 style={{ transitionTimingFunction: "var(--quint)" }}
               >
                 {String(k + 1).padStart(2, "0")}
               </span>
-              <span className={`text-[12px] font-bold uppercase tracking-[0.15em] transition-colors ${active ? "text-ink" : "text-ink/50"}`}>{s.label}</span>
+              <span className={`text-[12px] font-bold uppercase tracking-[0.15em] transition-colors ${active ? "text-copy" : "text-copy/50"}`}>{s.label}</span>
             </button>
           );
         })}

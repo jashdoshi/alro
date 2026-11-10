@@ -53,7 +53,7 @@ export default async function ContactPage({ searchParams }: Props) {
             <ol className="m-0 grid list-none gap-0 border-t border-ink/12 p-0" data-reveal-group>
               {next.map((s, k) => (
                 <li key={s.t} className="grid grid-cols-[2.75rem_1fr] gap-4 border-b border-ink/12 py-6">
-                  <span className="grid h-11 w-11 place-items-center rounded-full border border-ink/18 text-[11px] font-bold tracking-[0.15em] text-ink/55">{String(k + 1).padStart(2, "0")}</span>
+                  <span className="grid h-11 w-11 place-items-center rounded-full border border-ink/18 text-[11px] font-bold tracking-[0.15em] text-copy/55">{String(k + 1).padStart(2, "0")}</span>
                   <div className="grid gap-1.5 pt-1.5">
                     <h3 className="text-[1.35rem] leading-snug">{s.t}</h3>
                     <p className="body">{s.c}</p>

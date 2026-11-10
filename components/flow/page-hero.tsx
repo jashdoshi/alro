@@ -49,7 +49,7 @@ export function PageHero({
           <div className={`mt-[clamp(2.5rem,6vh,4.5rem)] grid items-end gap-12 ${aside ? "lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]" : ""}`}>
             <div className="grid max-w-[34rem] gap-7">
               {lead && (
-                <p className="text-[1.125rem] font-light leading-[1.625] text-ink/70" data-hero="text">
+                <p className="text-[1.125rem] font-light leading-[1.625] text-copy/70" data-hero="text">
                   {lead}
                 </p>
               )}

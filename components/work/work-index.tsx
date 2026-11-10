@@ -162,7 +162,7 @@ export function WorkIndex({ items }: { items: IndexItem[] }) {
                     href={w.externalHref ?? `/work/${w.slug}`}
                     data-row={w.slug}
                     data-cursor-invert
-                    className="group relative block overflow-hidden text-ink no-underline"
+                    className="group relative block overflow-hidden text-copy no-underline"
                     {...(isExternal
                       ? { target: "_blank", rel: "noopener noreferrer", "aria-label": `${w.title} — opens external portfolio in a new tab` }
                       : {})}
@@ -184,7 +184,7 @@ export function WorkIndex({ items }: { items: IndexItem[] }) {
                         <span className="tiny transition-colors duration-500 group-hover:text-mist/70">{w.label}</span>
                       </div>
                       <div className="flex items-center justify-between gap-6 md:justify-end">
-                        <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-ink/55 transition-colors duration-500 group-hover:text-mist/70">
+                        <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-copy/55 transition-colors duration-500 group-hover:text-mist/70">
                           {w.practice} · {w.year}
                         </span>
                         <span className="grid h-11 w-11 flex-none place-items-center rounded-full border border-ink/15 transition-colors duration-500 group-hover:border-mist/30 group-hover:text-paper">

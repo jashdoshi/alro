@@ -68,8 +68,8 @@ const process = [
   },
 ];
 
-const siteWork = work.filter((w) => w.slug === "birthday-website" || w.slug === "founder-one-portfolio");
-const labKinds = { "birthday-website": "story", "founder-one-portfolio": "design" } as const;
+const siteWork = work.filter((w) => w.slug === "promptly-app" || w.slug === "founder-one-portfolio");
+const labKinds = { "promptly-app": "promptly-site", "founder-one-portfolio": "design" } as const;
 
 export default function WebsitesPage() {
   return (
@@ -185,7 +185,7 @@ export default function WebsitesPage() {
             <ul className="relative grid gap-x-10 sm:grid-cols-2">
               {deliverables.map((d, k) => (
                 <li key={d.t} className={`grid grid-cols-[1.5rem_minmax(0,1fr)] gap-4 border-ink/12 py-5 ${k > 0 ? "border-t" : ""} ${k === 1 ? "sm:border-t-0" : ""}`}>
-                  <LineIcon name="check" className="mt-0.5 h-6 w-6 text-ink/70" />
+                  <LineIcon name="check" className="mt-0.5 h-6 w-6 text-copy/70" />
                   <div className="grid gap-1.5">
                     <h3 className="font-serif text-[1.3rem] leading-snug">{d.t}</h3>
                     <p className="body">{d.c}</p>
@@ -247,7 +247,7 @@ export default function WebsitesPage() {
                   The work, <em>honestly labelled.</em>
                 </>
               }
-              lead="A personal project and work made by one of the founders before alro. Each one says exactly what it is, and what it isn’t."
+              lead="A live product website and work made by one of the founders before alro. Each one says exactly what it is, and what it isn’t."
             />
             <Link href={routes.work} className="line-link relative after:absolute after:inset-x-0 after:-inset-y-3 self-start md:self-end" data-reveal="fade">
               See all work
@@ -255,23 +255,36 @@ export default function WebsitesPage() {
             </Link>
           </div>
           <div className="mt-[clamp(3rem,6vw,5rem)] grid gap-12 md:grid-cols-2 md:[&>*:nth-child(even)]:mt-24">
-            {siteWork.map((w) => (
-              <Link key={w.slug} href={`/work/${w.slug}`} className="pcard grid gap-4 no-underline" data-cursor-flower>
-                <div className="media" data-clip>
-                  <LabMedia kind={labKinds[w.slug as keyof typeof labKinds] ?? "design"} />
-                </div>
-                <div className="flex items-start justify-between gap-6" data-reveal="fade">
-                  <div className="grid gap-2">
-                    <h3 className="text-[1.6rem] leading-tight">{w.title}</h3>
-                    <span className="tiny">{w.label}</span>
-                    <p className="body max-w-[34rem]">{w.summary}</p>
+            {siteWork.map((w) => {
+              const externalHref = w.externalLink?.href !== "#" ? w.externalLink?.href : undefined;
+              const WorkLink = externalHref ? "a" : Link;
+
+              return (
+                <WorkLink
+                  key={w.slug}
+                  href={externalHref ?? `/work/${w.slug}`}
+                  className="pcard grid gap-4 no-underline"
+                  data-cursor-flower
+                  {...(externalHref
+                    ? { target: "_blank", rel: "noopener noreferrer", "aria-label": `${w.title} — opens the external site in a new tab` }
+                    : {})}
+                >
+                  <div className="media" data-clip>
+                    <LabMedia kind={labKinds[w.slug as keyof typeof labKinds] ?? "design"} />
                   </div>
-                  <span className="mt-1 grid h-11 w-11 flex-none place-items-center rounded-full border border-ink/15">
-                    <Arrow className="h-4 w-4" />
-                  </span>
-                </div>
-              </Link>
-            ))}
+                  <div className="flex items-start justify-between gap-6" data-reveal="fade">
+                    <div className="grid gap-2">
+                      <h3 className="text-[1.6rem] leading-tight">{w.title}</h3>
+                      <span className="tiny">{w.label}</span>
+                      <p className="body max-w-[34rem]">{w.summary}</p>
+                    </div>
+                    <span className="mt-1 grid h-11 w-11 flex-none place-items-center rounded-full border border-ink/15">
+                      <Arrow className="h-4 w-4" />
+                    </span>
+                  </div>
+                </WorkLink>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -322,7 +335,7 @@ function SiteCraft() {
             <i />
             <i />
             <i />
-            <span className="ml-3 truncate rounded-full bg-ink/[0.05] px-3 py-0.5 text-[9px] tracking-[0.08em] text-ink/45">your-company.com</span>
+            <span className="ml-3 truncate rounded-full bg-ink/[0.05] px-3 py-0.5 text-[9px] tracking-[0.08em] text-copy/45">your-company.com</span>
           </div>
           <div className="grid gap-4 p-[clamp(0.9rem,2.4vw,1.4rem)]">
             <div className="flex items-center justify-between">

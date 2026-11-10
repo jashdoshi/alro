@@ -41,12 +41,11 @@ export function BrainDemo() {
     <div className="window grid md:grid-cols-[0.85fr_1.4fr]">
       {/* prompts */}
       <div className="border-b border-ink/10 bg-ink/[0.02] p-5 md:border-b-0 md:border-r md:p-7">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center">
           <span className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em]">
             <span className="h-1.5 w-1.5 rounded-full bg-ink" />
             Company Brain
           </span>
-          <span className="rounded-full border border-ink/15 px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-ink/55">Illustrative demo</span>
         </div>
         <p className="tiny mt-8">Try asking</p>
         <div className="no-scrollbar -mx-5 mt-3 flex gap-2 overflow-x-auto px-5 md:mx-0 md:grid md:overflow-visible md:px-0" role="group" aria-label="Sample questions">
@@ -57,7 +56,7 @@ export function BrainDemo() {
               aria-pressed={k === i}
               onClick={() => setI(k)}
               className={`flex-none rounded-2xl border px-4 py-3 text-left text-[14px] leading-snug transition-all duration-500 md:w-full ${
-                k === i ? "border-ink bg-ink text-paper" : "border-ink/12 bg-white text-ink/75 hover:border-ink/40"
+                k === i ? "border-ink bg-ink text-paper" : "border-ink/12 bg-white text-copy/75 hover:border-ink/40"
               }`}
               style={{ transitionTimingFunction: "var(--quint)" }}
             >
@@ -94,7 +93,7 @@ export function BrainDemo() {
             </div>
           )}
         </div>
-        <p className="mt-auto pt-10 text-[12px] leading-relaxed text-ink/55">
+        <p className="mt-auto pt-10 text-[12px] leading-relaxed text-copy/55">
           Illustrative demo with sample data — not a real client result. Answers may need checking against their sources, and anything sensitive that leaves
           the business waits for review and the right permissions.
         </p>

@@ -1,6 +1,6 @@
 /**
  * alro. wordmark (leaf mark + "alro"), traced from the brand artwork.
- * Drawn in currentColor, so it follows the theme: ink in light, beige in dark.
+ * Drawn in currentColor, so it follows the active theme.
  */
 export function Logo({ className = "" }: { className?: string }) {
   return (

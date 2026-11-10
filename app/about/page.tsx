@@ -146,7 +146,7 @@ export default function AboutPage() {
             A note from the founders
           </span>
           <blockquote className="grid gap-8">
-            <p className="font-serif text-[clamp(1.6rem,3.6vw,2.75rem)] italic leading-[1.35] text-ink/85 max-w-[34ch]" data-scrub-words>
+            <p className="font-serif text-[clamp(1.6rem,3.6vw,2.75rem)] italic leading-[1.35] text-copy/85 max-w-[34ch]" data-scrub-words>
               {founderNote}
             </p>
             <footer className="tiny" data-reveal="fade">
@@ -239,18 +239,18 @@ export default function AboutPage() {
               <ul className="grid">
                 {fit.map((t) => (
                   <li key={t} className="grid grid-cols-[1.5rem_minmax(0,1fr)] gap-4 border-t border-ink/12 py-4">
-                    <LineIcon name="check" className="mt-0.5 h-6 w-6 text-ink" />
+                    <LineIcon name="check" className="mt-0.5 h-6 w-6 text-copy" />
                     <span className="body">{t}</span>
                   </li>
                 ))}
               </ul>
             </div>
             <div className="panel grid content-start gap-6 border border-ink/12" data-reveal="fade">
-              <h3 className="font-serif text-[1.75rem] text-ink/70">Probably not the right studio</h3>
+              <h3 className="font-serif text-[1.75rem] text-copy/70">Probably not the right studio</h3>
               <ul className="grid">
                 {notFit.map((t) => (
                   <li key={t} className="grid grid-cols-[1.5rem_minmax(0,1fr)] gap-4 border-t border-ink/12 py-4">
-                    <LineIcon name="minus" className="mt-0.5 h-6 w-6 text-ink/45" />
+                    <LineIcon name="minus" className="mt-0.5 h-6 w-6 text-copy/45" />
                     <span className="body">{t}</span>
                   </li>
                 ))}
@@ -339,7 +339,7 @@ function Overlap() {
             Systems
           </span>
         </div>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-ink">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-copy">
           <Logo className="h-auto w-[clamp(52px,12vw,76px)] transition-transform duration-700 ease-[var(--quint)] group-hover:scale-[1.06]" />
         </div>
       </div>

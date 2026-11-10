@@ -3,7 +3,7 @@
  * what it does — and doesn't — demonstrate.
  */
 
-export type WorkKind = "demonstration" | "experiment" | "portfolio";
+export type WorkKind = "demonstration" | "experiment" | "portfolio" | "product";
 
 export type WorkItem = {
   slug: string;
@@ -19,6 +19,10 @@ export type WorkItem = {
 };
 
 export const workKinds: Record<WorkKind, { title: string; body: string }> = {
+  product: {
+    title: "Live product websites",
+    body: "Public product work shown as it exists today, with a direct link to the live experience.",
+  },
   portfolio: {
     title: "Previous work by the founders",
     body: "Made by each founder before alro., with their role and context stated. Not presented as studio commissions.",
@@ -71,34 +75,35 @@ export const work: WorkItem[] = [
     ],
   },
   {
-    slug: "birthday-website",
-    title: "A Birthday, Told as a Website",
-    summary: "A personal, narrative website made as a gift — an exercise in story, personalisation, motion and mobile layout.",
-    label: "Independent project · Not client work",
-    kind: "experiment",
+    slug: "promptly-app",
+    title: "Promptly",
+    summary: "A dark, motion-led product website for an app that turns unclear intent into structured prompts.",
+    label: "Live product · Website",
+    kind: "product",
     practice: "Websites",
-    year: "[Year]",
-    readingNote: "A personal project with an audience of one. No user testing or measurement took place.",
+    year: "Live",
+    readingNote: "A live product website by Team Promptly.",
+    externalLink: { label: "Visit Promptly", href: "https://www.trypromptlyapp.com" },
     sections: [
       {
         title: "Context",
-        body: "A one-off website made for a birthday. Never commissioned — it exists because the medium allowed a kind of message a card couldn’t.",
+        body: "Promptly helps people turn an unclear idea into a structured prompt for text, image and video models.",
       },
-      { title: "Role", body: "[Which founder made it, and what they personally did: concept, design, development, writing.]" },
+      { title: "Attribution", body: "Visioned and crafted by Team Promptly, as credited on the live site." },
       {
         title: "The challenge",
-        body: "Turn a personal story into a sequence that unfolds well on a phone — where it would most likely be opened — without the motion overwhelming the message.",
+        body: "Explain a multi-step AI product clearly while keeping the experience fast, focused and visually distinctive.",
       },
       {
         title: "The approach",
-        body: "[Explain the structure of the story, the motion decisions, and how the layout was rethought for small screens rather than shrunk.]",
+        body: "A dark product narrative uses a focused hero, a step-by-step process, concrete benefits and direct pricing to move from promise to proof.",
       },
-      { title: "The work", body: "[Add screenshots or a short capture of the key moments, on mobile and desktop.]" },
+      { title: "The work", body: "The live site is available at trypromptlyapp.com." },
       {
         title: "What it demonstrates",
-        list: ["Narrative structure on the web", "Personalisation and tone", "Purposeful motion", "Mobile-first layout"],
+        list: ["Product positioning", "Motion-led art direction", "Responsive web design", "Conversion-focused structure"],
       },
-      { title: "Limitations", body: "A personal project with an audience of one. No user testing or measurement took place." },
+      { title: "Limitations", body: "Product claims, pricing and availability are controlled by Team Promptly and may change." },
     ],
   },
   {

@@ -17,7 +17,7 @@ const topics: { id: Topic; title: string; body: string }[] = [
 
 /* Shared field look: soft grey pill, 16px text (no iOS zoom), 48px tall. */
 const fieldCls =
-  "w-full min-h-12 rounded-full border border-transparent bg-ink/[0.045] px-5 py-3 text-[16px] leading-normal text-ink placeholder:text-ink/40 transition-colors duration-300 hover:bg-ink/[0.07] focus:border-ink/40 focus:bg-white focus-visible:outline-offset-2 aria-[invalid=true]:border-ink";
+  "w-full min-h-12 rounded-full border border-transparent bg-ink/[0.045] px-5 py-3 text-[16px] leading-normal text-copy placeholder:text-copy/40 transition-colors duration-300 hover:bg-ink/[0.07] focus:border-ink/40 focus:bg-white focus-visible:outline-offset-2 aria-[invalid=true]:border-ink";
 
 /**
  * Service-aware qualification form. One choice decides which few questions
@@ -81,13 +81,13 @@ export function ContactFormV3({ initialTopic }: { initialTopic?: Topic }) {
               <label
                 key={t.id}
                 className={`relative flex min-h-11 cursor-pointer flex-col gap-4 rounded-[1.25rem] border p-5 transition-colors duration-300 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-[3px] has-[:focus-visible]:outline-ink md:min-h-[13rem] md:p-6 ${
-                  on ? "border-ink bg-ink text-paper" : "border-ink/12 bg-white/60 text-ink hover:border-ink/35"
+                  on ? "border-ink bg-ink text-paper" : "border-ink/12 bg-white/60 text-copy hover:border-ink/35"
                 }`}
               >
                 <input type="radio" name="route" value={t.id} checked={on} onChange={() => setTopic(t.id)} className="sr-only" />
                 <span className="flex items-center justify-between">
-                  <span className={`text-[11px] font-bold tabular-nums tracking-[0.2em] ${on ? "text-mist/60" : "text-ink/45"}`}>{String(k + 1).padStart(2, "0")}</span>
-                  <span className={`grid h-6 w-6 place-items-center rounded-full border transition-colors ${on ? "border-paper bg-paper text-ink" : "border-ink/25"}`} aria-hidden="true">
+                  <span className={`text-[11px] font-bold tabular-nums tracking-[0.2em] ${on ? "text-mist/60" : "text-copy/45"}`}>{String(k + 1).padStart(2, "0")}</span>
+                  <span className={`grid h-6 w-6 place-items-center rounded-full border transition-colors ${on ? "border-paper bg-paper text-copy" : "border-ink/25"}`} aria-hidden="true">
                     {on && (
                       <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12.5l4.5 4.5L19 7.5" />
@@ -96,7 +96,7 @@ export function ContactFormV3({ initialTopic }: { initialTopic?: Topic }) {
                   </span>
                 </span>
                 <span className="font-serif text-[1.6rem] leading-tight md:mt-auto">{t.title}</span>
-                <span className={`text-[14px] leading-snug ${on ? "text-mist/75" : "text-ink/60"}`}>{t.body}</span>
+                <span className={`text-[14px] leading-snug ${on ? "text-mist/75" : "text-copy/60"}`}>{t.body}</span>
               </label>
             );
           })}
@@ -159,7 +159,7 @@ export function ContactFormV3({ initialTopic }: { initialTopic?: Topic }) {
       </div>
 
       {showError && (
-        <p ref={errorRef} id={errorId} tabIndex={-1} role="alert" className="flex items-start gap-3 rounded-2xl border border-ink bg-white px-5 py-4 text-[15px] text-ink">
+        <p ref={errorRef} id={errorId} tabIndex={-1} role="alert" className="flex items-start gap-3 rounded-2xl border border-ink bg-white px-5 py-4 text-[15px] text-copy">
           <svg viewBox="0 0 24 24" className="mt-0.5 h-5 w-5 flex-none" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" aria-hidden="true">
             <circle cx="12" cy="12" r="9" />
             <path d="M12 7.5v5.5M12 16.5h.01" />
@@ -169,9 +169,9 @@ export function ContactFormV3({ initialTopic }: { initialTopic?: Topic }) {
       )}
 
       <div className="flex flex-col items-start gap-6 border-t border-ink/12 pt-8 sm:flex-row sm:items-center sm:justify-between">
-        <p className="max-w-[40ch] text-[13px] leading-relaxed text-ink/55">
+        <p className="max-w-[40ch] text-[13px] leading-relaxed text-copy/55">
           We only use what you send to reply to you. See our{" "}
-          <Link href={routes.privacy} className="text-ink underline decoration-ink/30 underline-offset-4 hover:decoration-ink">
+          <Link href={routes.privacy} className="text-copy underline decoration-ink/30 underline-offset-4 hover:decoration-ink">
             privacy notice
           </Link>
           .
@@ -189,17 +189,17 @@ export function ContactFormV3({ initialTopic }: { initialTopic?: Topic }) {
 
 function Label({ htmlFor, children, optional, required }: { htmlFor: string; children: ReactNode; optional?: boolean; required?: boolean }) {
   return (
-    <label htmlFor={htmlFor} className="flex items-baseline justify-between gap-4 px-1 text-[14px] font-medium text-ink/80">
+    <label htmlFor={htmlFor} className="flex items-baseline justify-between gap-4 px-1 text-[14px] font-medium text-copy/80">
       <span>
         {children}
         {required && (
-          <span className="text-ink/45" aria-hidden="true">
+          <span className="text-copy/45" aria-hidden="true">
             {" "}
             *
           </span>
         )}
       </span>
-      {optional && <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-ink/40">Optional</span>}
+      {optional && <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-copy/40">Optional</span>}
     </label>
   );
 }
@@ -255,7 +255,7 @@ function Area({ label, name, hint }: { label: string; name: string; hint?: strin
       <Label htmlFor={id}>{label}</Label>
       <textarea id={id} name={name} rows={4} aria-describedby={hint ? `${id}-hint` : undefined} className={`${fieldCls} min-h-32 resize-y !rounded-[1.25rem] py-4`} />
       {hint && (
-        <p id={`${id}-hint`} className="px-1 text-[13px] leading-relaxed text-ink/50">
+        <p id={`${id}-hint`} className="px-1 text-[13px] leading-relaxed text-copy/50">
           {hint}
         </p>
       )}
@@ -276,7 +276,7 @@ function Select({ label, name, options, optional, className = "" }: { label: str
             <option key={o}>{o}</option>
           ))}
         </select>
-        <svg viewBox="0 0 24 24" className="pointer-events-none absolute right-5 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/50" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" aria-hidden="true">
+        <svg viewBox="0 0 24 24" className="pointer-events-none absolute right-5 top-1/2 h-4 w-4 -translate-y-1/2 text-copy/50" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" aria-hidden="true">
           <path d="M6 9l6 6 6-6" />
         </svg>
       </div>
